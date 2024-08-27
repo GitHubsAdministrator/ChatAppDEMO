@@ -6,6 +6,7 @@ package top.certstone;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.util.Arrays;
 import javax.swing.*;
 
 import com.formdev.flatlaf.FlatDarkLaf;
@@ -24,17 +25,17 @@ public class LoginGUI extends JFrame implements Runnable {
     private void conn(ActionEvent e) {
         String ip = ipAddr.getText();
         int port = Integer.parseInt(this.port.getText());
-        String passwd = this.passwd.getText();
+        String key = Arrays.toString(this.keyText.getPassword());
         String name = this.name.getText();
         if (name.equals("")){
             new WarnMassage(this, "Nickname can't be empty!");
             return;
         }
-        if (passwd.equals("")){
-            passwd = null;
+        if (key.equals("")){
+            key = null;
         }
         try {
-//            new ChatGUI(ip, port, passwd, name).run();
+            new ChatGUI(ip, port, key, name).run();
         } catch (Exception ex) {
             new WarnMassage(this, "Connection failed!");
             ex.printStackTrace();
@@ -49,7 +50,7 @@ public class LoginGUI extends JFrame implements Runnable {
         label2 = new JLabel();
         port = new JTextField();
         label3 = new JLabel();
-        passwd = new JPasswordField();
+        keyText = new JPasswordField();
         label4 = new JLabel();
         name = new JTextField();
         conn = new JButton();
@@ -87,9 +88,9 @@ public class LoginGUI extends JFrame implements Runnable {
         contentPane.add(port, "cell 1 1");
 
         //---- label3 ----
-        label3.setText(" Password (Optional)");
+        label3.setText(" Key (Optional)");
         contentPane.add(label3, "cell 0 2");
-        contentPane.add(passwd, "cell 1 2");
+        contentPane.add(keyText, "cell 1 2");
 
         //---- label4 ----
         label4.setText(" Nickname");
@@ -114,12 +115,13 @@ public class LoginGUI extends JFrame implements Runnable {
     private JLabel label2;
     private JTextField port;
     private JLabel label3;
-    private JPasswordField passwd;
+    private JPasswordField keyText;
     private JLabel label4;
     private JTextField name;
     private JButton conn;
     // JFormDesigner - End of variables declaration  //GEN-END:variables  @formatter:on
 
+    @Override
     public void run(){
         FlatDarkLaf.setup();
         LoginGUI gui = new LoginGUI();
