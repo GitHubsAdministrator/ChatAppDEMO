@@ -15,7 +15,7 @@ import javax.swing.*;
 public class ChatGUI extends JFrame implements Runnable{
     public ChatGUI(String ip, int port, String key, User user) throws IOException {
         initComponents();
-        new UserServiceThread(new Socket(ip,port), user).start();
+//        new UserServiceThread(new Socket(ip,port), user).start();
     }
 
     private void initComponents() {

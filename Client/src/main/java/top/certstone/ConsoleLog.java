@@ -17,4 +17,7 @@ public class ConsoleLog {
     }
 
 
+    public static void receiveMsg(Massage msg) {
+        System.out.println("[INFO]receiveMsg: " + getSenderName(msg) + " : " + msg.getContent());
+    }
 }

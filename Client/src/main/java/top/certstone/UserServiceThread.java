@@ -33,12 +33,32 @@ public class UserServiceThread extends Thread {
         }
     }
 
+    public Massage receiveMsg() {
+        try {
+            Massage msg = (Massage) ois.readObject();
+            ConsoleLog.receiveMsg(msg);
+            return msg;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
 
 
     @Override
     public void run() {
+        //checkInfo();
         while (true) {
-
+            Massage msg = receiveMsg();
+            if (msg == null) {
+                break;
+            }
+            if (msg.getType() == 0) {
+                //broadcast(msg);
+            } else {
+                //sendMsg(msg);
+            }
         }
     }
 
