@@ -14,7 +14,7 @@ public class chatAppServer {
 
     public static int port = 61000; // Default port
     public static String key = null; // Default key
-    public static HashMap<ServerThread,User> clients = new HashMap(); // Create a vector to store clients
+    public static HashMap<ServerThread,User> clients = new HashMap<>(); // Create a vector to store clients
     public static Vector<User> users = new Vector<>(); // Create a vector to store users
 
     public static void main(String[] args) {
@@ -34,6 +34,7 @@ public class chatAppServer {
 
     public static void removeClient(ServerThread serverThread) {
         clients.remove(serverThread);
+        users.remove(serverThread.getUser());
     }
 
 
@@ -70,6 +71,10 @@ class ServerThread extends Thread {
 
     public Socket getSocket() {
         return socket;
+    }
+
+    public User getUser() {
+        return user;
     }
 
     public void sendMsg(Massage msg) {
@@ -145,15 +150,17 @@ class ServerThread extends Thread {
                 }
                 break;
             case MassageType.EXIT:
-
+                Massage retMsg = new Massage(MassageType.TEXT, "[INFO]\""+user.getName()+"\" left the chatroom", null);
+                broadcast(retMsg);
+                try {
+                    socket.close();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+                chatAppServer.removeClient(this);
+                loop = false;
                 break;
             case MassageType.FILE:
-
-                break;
-            case MassageType.ERROR:
-
-                break;
-            case MassageType.SUCCESS:
 
                 break;
             default:
