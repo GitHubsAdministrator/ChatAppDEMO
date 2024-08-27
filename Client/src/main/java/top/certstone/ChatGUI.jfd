@@ -11,10 +11,10 @@ new FormModel {
 				"hgap": 3
 				"vgap": 3
 			} ) {
-				name: "panel1"
+				name: "Nav"
 				"preferredSize": new java.awt.Dimension( 88, 55 )
 				add( new FormComponent( "javax.swing.JLabel" ) {
-					name: "label1"
+					name: "title"
 					"text": "Chatroom name"
 				}, new FormLayoutConstraints( class java.lang.String ) {
 					"value": "Center"
@@ -29,18 +29,47 @@ new FormModel {
 				"value": "North"
 			} )
 			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.BorderLayout ) ) {
-				name: "panel2"
+				name: "IOPanel"
 				add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
-					name: "scrollPane1"
+					name: "MessagePanel"
 					add( new FormComponent( "javax.swing.JList" ) {
-						name: "list1"
+						name: "messageList"
 					} )
 				}, new FormLayoutConstraints( class java.lang.String ) {
 					"value": "Center"
 				} )
-				add( new FormComponent( "javax.swing.JTextField" ) {
-					name: "textField1"
-					"preferredSize": new java.awt.Dimension( 64, 175 )
+				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.BorderLayout ) ) {
+					name: "InputPanel"
+					add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.FlowLayout ) {
+						"alignment": 0
+						"hgap": 10
+						"vgap": 20
+					} ) {
+						name: "functions"
+					}, new FormLayoutConstraints( class java.lang.String ) {
+						"value": "North"
+					} )
+					add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.FlowLayout ) {
+						"alignment": 2
+					} ) {
+						name: "SendPanel"
+						add( new FormComponent( "javax.swing.JButton" ) {
+							name: "sendButton"
+							"text": "Send"
+							"alignmentY": -0.5f
+						} )
+					}, new FormLayoutConstraints( class java.lang.String ) {
+						"value": "South"
+					} )
+					add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+						name: "scrollPane3"
+						add( new FormComponent( "javax.swing.JTextField" ) {
+							name: "inputField"
+							"preferredSize": new java.awt.Dimension( 64, 175 )
+						} )
+					}, new FormLayoutConstraints( class java.lang.String ) {
+						"value": "Center"
+					} )
 				}, new FormLayoutConstraints( class java.lang.String ) {
 					"value": "South"
 				} )
@@ -55,12 +84,12 @@ new FormModel {
 				"$alignLeft": true
 				"$alignTop": true
 			} ) {
-				name: "panel3"
+				name: "SidePanel"
 				"preferredSize": new java.awt.Dimension( 175, 45 )
 				add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
 					name: "scrollPane2"
 					add( new FormComponent( "javax.swing.JList" ) {
-						name: "list2"
+						name: "userList"
 					} )
 				}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
 					"gridy": 1

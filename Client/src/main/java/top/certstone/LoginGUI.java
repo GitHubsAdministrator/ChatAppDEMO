@@ -22,24 +22,37 @@ public class LoginGUI extends JFrame implements Runnable {
 
     }
 
+    // Function for the connect button
     private void conn(ActionEvent e) {
-        String ip = ipAddr.getText();
+
+        // Get the server IP, port, key, and nickname from the input box
+        String serverip = ipAddr.getText();
         int port = Integer.parseInt(this.port.getText());
         String key = Arrays.toString(this.keyText.getPassword());
         String name = this.name.getText();
+
+        // validly create a user
         if (name.equals("")){
             new WarnMassage(this, "Nickname can't be empty!");
             return;
+        } else if (name.length() > 20){
+            new WarnMassage(this, "Nickname can't be longer than 20 characters!");
+            return;
         }
+
         if (key.equals("")){
             key = null;
         }
+
+        // Create a ChatGUI object and run it
         try {
-            new ChatGUI(ip, port, key, name).run();
+            new ChatGUI(serverip, port, key, new User(name)).run();
         } catch (Exception ex) {
             new WarnMassage(this, "Connection failed!");
             ex.printStackTrace();
         }
+
+        // Close the current window
         this.dispose();
     }
 
