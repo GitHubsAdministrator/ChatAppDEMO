@@ -1,5 +1,7 @@
 package top.certstone;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -63,7 +65,7 @@ class ServerThread extends Thread {
     ObjectInputStream ois;
     ObjectOutputStream oos;
 
-    public ServerThread(Socket socket) throws IOException {
+    public ServerThread(@NotNull Socket socket) throws IOException {
         this.socket = socket;
         this.ois = new ObjectInputStream(socket.getInputStream());
         this.oos = new ObjectOutputStream(socket.getOutputStream());
@@ -80,7 +82,7 @@ class ServerThread extends Thread {
     public void sendMsg(Massage msg) {
         try {
             oos.writeObject(msg);
-            ServerLog.sendMsg(msg);
+            ConsoleLog.sendMsg(msg);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -90,7 +92,7 @@ class ServerThread extends Thread {
         for (ServerThread serverThread : clients.keySet()) {
             serverThread.sendMsg(msg);
         }
-        ServerLog.broadcast(msg);
+        ConsoleLog.broadcast(msg);
     }
 
     private void checkInfo() {
@@ -133,7 +135,7 @@ class ServerThread extends Thread {
         }
     }
 
-    public void handleMsg(Massage msg) {
+    public void handleMsg(@NotNull Massage msg) {
         switch (msg.getType()) {
             case MassageType.TEXT:
                 if (msg.getReceiver() == null) {
@@ -161,7 +163,7 @@ class ServerThread extends Thread {
                 loop = false;
                 break;
             case MassageType.FILE:
-
+                //TODO: 文件传输
                 break;
             default:
                 System.out.println("Unknown massage type");

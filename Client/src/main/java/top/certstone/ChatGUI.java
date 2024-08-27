@@ -5,15 +5,17 @@
 package top.certstone;
 
 import java.awt.*;
+import java.io.IOException;
+import java.net.Socket;
 import javax.swing.*;
 
 /**
  * @author CertStone
  */
 public class ChatGUI extends JFrame implements Runnable{
-    public ChatGUI(String ip, int port, String key, User user) {
+    public ChatGUI(String ip, int port, String key, User user) throws IOException {
         initComponents();
-
+        new UserServiceThread(new Socket(ip,port), user).start();
     }
 
     private void initComponents() {
@@ -139,6 +141,8 @@ public class ChatGUI extends JFrame implements Runnable{
     private JScrollPane scrollPane2;
     private JList userList;
     // JFormDesigner - End of variables declaration  //GEN-END:variables  @formatter:on
+
+
 
     @Override
     public void run() {

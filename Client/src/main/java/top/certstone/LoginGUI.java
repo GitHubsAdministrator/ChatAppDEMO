@@ -89,8 +89,8 @@ public class LoginGUI extends JFrame implements Runnable {
         contentPane.add(label1, "cell 0 0");
 
         //---- ipAddr ----
-        ipAddr.setText("127.0.0.1");
-        contentPane.add(ipAddr, "cell 1 0,width 70");
+        ipAddr.setText("certstone.top");
+        contentPane.add(ipAddr, "cell 1 0,width 100");
 
         //---- label2 ----
         label2.setText(" Port");

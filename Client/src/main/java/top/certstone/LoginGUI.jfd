@@ -19,9 +19,9 @@ new FormModel {
 			} )
 			add( new FormComponent( "javax.swing.JTextField" ) {
 				name: "ipAddr"
-				"text": "127.0.0.1"
+				"text": "certstone.top"
 			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
-				"value": "cell 1 0,width 70"
+				"value": "cell 1 0,width 100"
 			} )
 			add( new FormComponent( "javax.swing.JLabel" ) {
 				name: "label2"
