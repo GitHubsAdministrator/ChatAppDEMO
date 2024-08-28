@@ -6,6 +6,7 @@ package top.certstone;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.net.Socket;
 import java.util.Arrays;
 import javax.swing.*;
 
@@ -28,7 +29,7 @@ public class LoginGUI extends JFrame implements Runnable {
         // Get the server IP, port, key, and nickname from the input box
         String serverip = ipAddr.getText();
         int port = Integer.parseInt(this.port.getText());
-        String key = Arrays.toString(this.keyText.getPassword());
+        String key = new String(keyText.getPassword());
         String name = this.name.getText();
 
         // validly create a user
@@ -44,17 +45,20 @@ public class LoginGUI extends JFrame implements Runnable {
             key = null;
         }
 
-        // Create a ChatGUI object and run it
+        // Connect to the server
         try {
-//            new ChatGUI(serverip, port, key, new User(name)).run();
-//            new Thread(new ChatGUI(serverip, port, key, new User(name))).start();
+            Socket socket = new Socket(serverip, port);
+            User user = new User(name);
+            UserServiceThread userServiceThread = new UserServiceThread(socket, user, key);
+            userServiceThread.start();
+
+            this.dispose(); // Close the current window
         } catch (Exception ex) {
             new WarnMassage(this, "Connection failed!");
             ex.printStackTrace();
         }
 
-        // Close the current window
-        this.dispose();
+
     }
 
     private void initComponents() {

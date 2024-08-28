@@ -5,7 +5,7 @@ public class ConsoleLog {
         if (msg.getSender() == null) {
             return "Server";
         } else {
-            return msg.getSender().getName()+"("+msg.getSender().getUUID().substring(msg.getSender().getUUID().length()-12)+")";
+            return msg.getSender().getName()+"("+msg.getSender().getUUID().substring(msg.getSender().getUUID().length()-8)+")";
         }
     }
 

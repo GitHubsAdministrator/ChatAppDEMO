@@ -8,17 +8,19 @@ import java.net.Socket;
 public class UserServiceThread extends Thread {
     private Socket socket;
     private static User user;
-    public ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
-    public ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
+    public ObjectInputStream ois ;
+    public ObjectOutputStream oos ;
     public ChatGUI chatGUI;
     private String key = null;
     public Boolean loop = true;
 
-    public UserServiceThread(Socket socket, User user, ChatGUI chatGUI, String key) throws IOException {
+    public UserServiceThread(Socket socket, User user, String key) throws IOException {
         this.socket = socket;
         this.user = user;
-        this.chatGUI = chatGUI;
         this.key = key;
+        oos = new ObjectOutputStream(socket.getOutputStream());
+        oos.flush(); // 确保 ObjectOutputStream 已经完全初始化
+        ois = new ObjectInputStream(socket.getInputStream());
     }
 
     public Socket getSocket() {
@@ -97,6 +99,7 @@ public class UserServiceThread extends Thread {
     @Override
     public void run() {
         loginCheck(key);
+        ChatGUI mainGUI = new ChatGUI(user);
         while (loop) {
             Massage msg = receiveMsg();
             if (msg == null) {

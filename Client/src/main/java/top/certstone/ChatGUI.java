@@ -13,11 +13,11 @@ import javax.swing.*;
  * @author CertStone
  */
 public class ChatGUI extends JFrame {
-    public ChatGUI(String key, User user) {
+    public ChatGUI( User user) {
         initComponents();
         this.setVisible(true);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//        new UserServiceThread(new Socket(ip,port), user).start();
+
     }
 
     private void initComponents() {
@@ -145,7 +145,11 @@ public class ChatGUI extends JFrame {
     // JFormDesigner - End of variables declaration  //GEN-END:variables  @formatter:on
 
     public void addMessage(Massage msg) {
-        //TODO
+        SwingUtilities.invokeLater(() -> {
+            DefaultListModel model = new DefaultListModel();
+            model.addElement(msg.getContent());
+            messageList.setModel(model);
+        });
     }
 
 }

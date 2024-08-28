@@ -67,8 +67,9 @@ class ServerThread extends Thread {
 
     public ServerThread(@NotNull Socket socket) throws IOException {
         this.socket = socket;
-        this.ois = new ObjectInputStream(socket.getInputStream());
-        this.oos = new ObjectOutputStream(socket.getOutputStream());
+        oos = new ObjectOutputStream(socket.getOutputStream());
+        oos.flush(); // 确保 ObjectOutputStream 已经完全初始化
+        ois = new ObjectInputStream(socket.getInputStream());
     }
 
     public Socket getSocket() {
