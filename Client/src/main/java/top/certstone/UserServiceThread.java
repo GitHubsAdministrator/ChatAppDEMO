@@ -1,5 +1,6 @@
 package top.certstone;
 
+import javax.swing.*;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -58,14 +59,18 @@ public class UserServiceThread extends Thread {
         Massage retMsg = receiveMsg();
         if (retMsg.getType() == MassageType.ERROR) {
             new WarnMassage(chatGUI, retMsg.getContent());
+            loop = false;
             try {
                 socket.close();
-                loop = false;
             } catch (IOException e) {
                 e.printStackTrace();
             }
+            SwingUtilities.invokeLater(
+                    new LoginGUI()
+            );
             return;
         }
+        chatGUI = new ChatGUI(user);
     }
 
     private void handleMsg(Massage msg) {
@@ -81,12 +86,14 @@ public class UserServiceThread extends Thread {
                 break;
             case MassageType.TEXT:
                     chatGUI.addMessage(msg);
+                    ConsoleLog.receiveMsg(msg);
                 break;
             case MassageType.FILE:
 //                    chatGUI.addFile(msg);
                 break;
             case MassageType.ERROR:
                 new WarnMassage(chatGUI, msg.getContent());
+                loop = false;
                 break;
             case MassageType.SUCCESS:
 
@@ -99,7 +106,6 @@ public class UserServiceThread extends Thread {
     @Override
     public void run() {
         loginCheck(key);
-        ChatGUI mainGUI = new ChatGUI(user);
         while (loop) {
             Massage msg = receiveMsg();
             if (msg == null) {

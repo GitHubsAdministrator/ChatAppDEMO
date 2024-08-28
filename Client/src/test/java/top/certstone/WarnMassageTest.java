@@ -1,24 +1,23 @@
-/*
- * Created by JFormDesigner on Mon Aug 26 20:07:24 CST 2024
- */
-
 package top.certstone;
 
-import java.awt.*;
-import javax.swing.*;
-import net.miginfocom.swing.*;
+import net.miginfocom.swing.MigLayout;
+import org.junit.jupiter.api.Test;
 
-/**
- * @author CertStone
- */
-public class WarnMassage extends JDialog {
-    public WarnMassage(Window owner, String text) {
+import javax.swing.*;
+
+import java.awt.*;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+class WarnMassageTest extends JDialog {
+
+    public WarnMassageTest(Window owner, String text) {
         super(owner);
         initComponents();
         this.text.setText(text);
         this.okButton.addActionListener(e -> this.dispose());
-        this.setVisible(true);
         this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+        this.setVisible(true);
     }
 
     private void initComponents() {
@@ -45,14 +44,14 @@ public class WarnMassage extends JDialog {
             //======== contentPanel ========
             {
                 contentPanel.setLayout(new MigLayout(
-                    "insets 2,hidemode 3,align center center,gap 2 2",
-                    // columns
-                    "[fill]" +
-                    "[fill]",
-                    // rows
-                    "[]" +
-                    "[]" +
-                    "[]"));
+                        "insets 2,hidemode 3,align center center,gap 2 2",
+                        // columns
+                        "[fill]" +
+                                "[fill]",
+                        // rows
+                        "[]" +
+                                "[]" +
+                                "[]"));
                 contentPanel.add(label2, "cell 0 0");
                 contentPanel.add(vSpacer1, "cell 0 0");
 
@@ -69,11 +68,11 @@ public class WarnMassage extends JDialog {
             //======== buttonBar ========
             {
                 buttonBar.setLayout(new MigLayout(
-                    "insets dialog,alignx right",
-                    // columns
-                    "[button,fill]",
-                    // rows
-                    null));
+                        "insets dialog,alignx right",
+                        // columns
+                        "[button,fill]",
+                        // rows
+                        null));
 
                 //---- okButton ----
                 okButton.setText("OK");
@@ -98,5 +97,7 @@ public class WarnMassage extends JDialog {
     private JButton okButton;
     // JFormDesigner - End of variables declaration  //GEN-END:variables  @formatter:on
 
-
+    public static void main(String[] args) {
+        new WarnMassageTest(null, "This is a warning message");
+    }
 }

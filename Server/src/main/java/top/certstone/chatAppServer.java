@@ -93,7 +93,11 @@ class ServerThread extends Thread {
 
     public void broadcast(Massage msg) {
         for (ServerThread serverThread : clients.keySet()) {
-            serverThread.sendMsg(msg);
+            try {
+                serverThread.oos.writeObject(msg);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         }
         ConsoleLog.broadcast(msg);
     }
@@ -107,14 +111,14 @@ class ServerThread extends Thread {
         try {
             Massage msg = (Massage) ois.readObject();
             if (msg.getType() != MassageType.LOGIN) {
-                Massage retMsg = new Massage(MassageType.ERROR, "Please Connect first", null);
+                Massage retMsg = new Massage(MassageType.ERROR, "Please Connect first", null, msg.getSender());
                 sendMsg(retMsg);
                 socket.close();
                 loop = false;
                 return;
             }
             if (!Objects.equals(msg.getContent(), chatAppServer.key)){
-                Massage retMsg = new Massage(MassageType.ERROR, "Key error", null);
+                Massage retMsg = new Massage(MassageType.ERROR, "Key error", null, msg.getSender());
                 sendMsg(retMsg);
                 socket.close();
                 loop = false;
@@ -122,7 +126,7 @@ class ServerThread extends Thread {
             }
             for (User user : chatAppServer.users) {
                 if (user.getName().equals(msg.getSender().getName())) {
-                    Massage retMsg = new Massage(MassageType.ERROR, "User already exists", null);
+                    Massage retMsg = new Massage(MassageType.ERROR, "User already exists", null, msg.getSender());
                     sendMsg(retMsg);
                     socket.close();
                     loop = false;
