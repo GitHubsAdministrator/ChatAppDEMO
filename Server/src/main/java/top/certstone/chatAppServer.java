@@ -62,6 +62,7 @@ public class chatAppServer {
             if (args[i].equals("-h") || args[i].equals("--help")) {
                 System.out.println("Usage: java -jar chatAppServer.jar [options]");
                 System.out.println("Options:");
+                System.out.println("  -h, --help         Show this help message and exit");
                 System.out.println("  -p, --port <port>  Set the port of the server (default 61000)");
                 System.out.println("  -k, --key <key>    Set the key of the server (default null)");
                 System.exit(0);
