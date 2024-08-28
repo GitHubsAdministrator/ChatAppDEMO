@@ -23,6 +23,9 @@ public class ChatGUI extends JFrame {
 
     public ChatGUI(UserServiceThread service, User user) {
         initComponents();
+        messageList.setCellRenderer(new MassageRenderer());
+        inputField.setLineWrap(true);
+
         this.service = service;
         this.user = user;
         this.setVisible(true);
