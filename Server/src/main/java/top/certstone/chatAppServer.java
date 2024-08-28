@@ -50,10 +50,21 @@ public class chatAppServer {
             }
         }
 
-        //获取密钥参数-k(or --key)
+        // 获取密钥参数-k(or --key)
         for (int i = 0; i < args.length; i++) {
             if (args[i].equals("-k") || args[i].equals("--key")) {
                 key = args[i + 1];
+            }
+        }
+
+        // 获取-h/--help参数
+        for (int i = 0; i < args.length; i++) {
+            if (args[i].equals("-h") || args[i].equals("--help")) {
+                System.out.println("Usage: java -jar chatAppServer.jar [options]");
+                System.out.println("Options:");
+                System.out.println("  -p, --port <port>  Set the port of the server (default 61000)");
+                System.out.println("  -k, --key <key>    Set the key of the server (default null)");
+                System.exit(0);
             }
         }
     }
