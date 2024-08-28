@@ -70,7 +70,7 @@ public class UserServiceThread extends Thread {
             );
             return;
         }
-        chatGUI = new ChatGUI(user);
+        chatGUI = new ChatGUI(this,user);
     }
 
     private void handleMsg(Massage msg) {

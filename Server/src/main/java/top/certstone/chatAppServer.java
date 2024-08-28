@@ -136,7 +136,7 @@ class ServerThread extends Thread {
             user = msg.getSender();
             clients.put(this, user);
             chatAppServer.users.add(user);
-            Massage retMsg = new Massage(MassageType.TEXT, "[INFO]\""+ConsoleLog.getSenderName(msg)+"\" came to the chatroom", null);
+            Massage retMsg = new Massage(MassageType.TEXT, "[INFO]\""+ConsoleLog.getSenderName(msg)+"\" came to the chatroom (ip "+socket.getInetAddress() +")", null);
             broadcast(retMsg);
         } catch (Exception e) {
             e.printStackTrace();

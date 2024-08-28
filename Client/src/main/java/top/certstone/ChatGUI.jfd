@@ -40,6 +40,9 @@ new FormModel {
 				} )
 				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.BorderLayout ) ) {
 					name: "InputPanel"
+					"border": new javax.swing.border.TitledBorder( "Input Text Here" )
+					"minimumSize": new java.awt.Dimension( 92, 100 )
+					"preferredSize": new java.awt.Dimension( 92, 240 )
 					add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.FlowLayout ) {
 						"alignment": 0
 						"hgap": 10
@@ -57,15 +60,19 @@ new FormModel {
 							name: "sendButton"
 							"text": "Send"
 							"alignmentY": -0.5f
+							addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "send", true ) )
 						} )
 					}, new FormLayoutConstraints( class java.lang.String ) {
 						"value": "South"
 					} )
 					add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
 						name: "scrollPane3"
-						add( new FormComponent( "javax.swing.JTextField" ) {
+						"border": new javax.swing.border.EmptyBorder( 5, 5, 5, 5 )
+						add( new FormComponent( "javax.swing.JTextArea" ) {
 							name: "inputField"
 							"preferredSize": new java.awt.Dimension( 64, 175 )
+							"border": sfield com.jformdesigner.model.FormObject NULL_VALUE
+							"background": new java.awt.Color( 60, 63, 65, 255 )
 						} )
 					}, new FormLayoutConstraints( class java.lang.String ) {
 						"value": "Center"

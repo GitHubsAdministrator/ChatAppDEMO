@@ -5,19 +5,42 @@
 package top.certstone;
 
 import java.awt.*;
+import java.awt.event.*;
 import java.io.IOException;
 import java.net.Socket;
 import javax.swing.*;
+import javax.swing.border.*;
+import com.jgoodies.forms.factories.*;
 
 /**
  * @author CertStone
  */
 public class ChatGUI extends JFrame {
-    public ChatGUI( User user) {
+
+    DefaultListModel<Massage> messageListModel = new DefaultListModel<>();
+    UserServiceThread service;
+    User user;
+
+    public ChatGUI(UserServiceThread service, User user) {
         initComponents();
+        this.service = service;
+        this.user = user;
         this.setVisible(true);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
+    }
+
+    // Function for the send button
+    private void send(ActionEvent e) {
+        // Get the content of the input box
+        String content = inputField.getText();
+        if (content.equals("")) {
+            return;
+        }
+        // Send the message
+        Massage msg = new Massage(MassageType.TEXT, content, user);
+        service.sendMsg(msg);
+        inputField.setText("");
     }
 
     private void initComponents() {
@@ -33,7 +56,7 @@ public class ChatGUI extends JFrame {
         SendPanel = new JPanel();
         sendButton = new JButton();
         scrollPane3 = new JScrollPane();
-        inputField = new JTextField();
+        inputField = new JTextArea();
         SidePanel = new JPanel();
         scrollPane2 = new JScrollPane();
         userList = new JList();
@@ -71,6 +94,9 @@ public class ChatGUI extends JFrame {
 
             //======== InputPanel ========
             {
+                InputPanel.setBorder(new TitledBorder("Input Text Here"));
+                InputPanel.setMinimumSize(new Dimension(92, 100));
+                InputPanel.setPreferredSize(new Dimension(92, 240));
                 InputPanel.setLayout(new BorderLayout());
 
                 //======== functions ========
@@ -86,15 +112,19 @@ public class ChatGUI extends JFrame {
                     //---- sendButton ----
                     sendButton.setText("Send");
                     sendButton.setAlignmentY(-0.5F);
+                    sendButton.addActionListener(e -> send(e));
                     SendPanel.add(sendButton);
                 }
                 InputPanel.add(SendPanel, BorderLayout.SOUTH);
 
                 //======== scrollPane3 ========
                 {
+                    scrollPane3.setBorder(new EmptyBorder(5, 5, 5, 5));
 
                     //---- inputField ----
                     inputField.setPreferredSize(new Dimension(64, 175));
+                    inputField.setBorder(null);
+                    inputField.setBackground(new Color(0x3c3f41));
                     scrollPane3.setViewportView(inputField);
                 }
                 InputPanel.add(scrollPane3, BorderLayout.CENTER);
@@ -138,7 +168,7 @@ public class ChatGUI extends JFrame {
     private JPanel SendPanel;
     private JButton sendButton;
     private JScrollPane scrollPane3;
-    private JTextField inputField;
+    private JTextArea inputField;
     private JPanel SidePanel;
     private JScrollPane scrollPane2;
     private JList userList;
@@ -146,9 +176,8 @@ public class ChatGUI extends JFrame {
 
     public void addMessage(Massage msg) {
         SwingUtilities.invokeLater(() -> {
-            DefaultListModel model = new DefaultListModel();
-            model.addElement(msg.getContent());
-            messageList.setModel(model);
+            messageListModel.addElement(msg);
+            messageList.setModel(messageListModel);
         });
     }
 

@@ -2,8 +2,8 @@ package top.certstone;
 
 public interface MassageType {
     int LOGIN = 0;
-    int EXIT = 1;
-    int TEXT = 2;
+    int TEXT = 1;
+    int EXIT = 2;
     int FILE = 3;
     int ERROR = 4;
     int SUCCESS = 5;
