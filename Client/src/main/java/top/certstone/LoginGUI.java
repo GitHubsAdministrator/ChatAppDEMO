@@ -47,7 +47,7 @@ public class LoginGUI extends JFrame implements Runnable {
         // Create a ChatGUI object and run it
         try {
 //            new ChatGUI(serverip, port, key, new User(name)).run();
-            new Thread(new ChatGUI(serverip, port, key, new User(name))).start();
+//            new Thread(new ChatGUI(serverip, port, key, new User(name))).start();
         } catch (Exception ex) {
             new WarnMassage(this, "Connection failed!");
             ex.printStackTrace();

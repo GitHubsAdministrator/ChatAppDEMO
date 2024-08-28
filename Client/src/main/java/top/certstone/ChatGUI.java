@@ -12,9 +12,11 @@ import javax.swing.*;
 /**
  * @author CertStone
  */
-public class ChatGUI extends JFrame implements Runnable{
-    public ChatGUI(String ip, int port, String key, User user) throws IOException {
+public class ChatGUI extends JFrame {
+    public ChatGUI(String key, User user) {
         initComponents();
+        this.setVisible(true);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 //        new UserServiceThread(new Socket(ip,port), user).start();
     }
 
@@ -142,11 +144,8 @@ public class ChatGUI extends JFrame implements Runnable{
     private JList userList;
     // JFormDesigner - End of variables declaration  //GEN-END:variables  @formatter:on
 
-
-
-    @Override
-    public void run() {
-        this.setVisible(true);
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    public void addMessage(Massage msg) {
+        //TODO
     }
+
 }

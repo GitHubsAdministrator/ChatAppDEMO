@@ -10,10 +10,15 @@ public class UserServiceThread extends Thread {
     private static User user;
     public ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
     public ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
+    public ChatGUI chatGUI;
+    private String key = null;
+    public Boolean loop = true;
 
-    public UserServiceThread(Socket socket, User user) throws IOException {
+    public UserServiceThread(Socket socket, User user, ChatGUI chatGUI, String key) throws IOException {
         this.socket = socket;
         this.user = user;
+        this.chatGUI = chatGUI;
+        this.key = key;
     }
 
     public Socket getSocket() {
@@ -33,6 +38,7 @@ public class UserServiceThread extends Thread {
         }
     }
 
+
     public Massage receiveMsg() {
         try {
             Massage msg = (Massage) ois.readObject();
@@ -44,23 +50,63 @@ public class UserServiceThread extends Thread {
         }
     }
 
+    private void loginCheck(String key) {
+        Massage msg = new Massage(MassageType.LOGIN, key, user);
+        sendMsg(msg);
+        Massage retMsg = receiveMsg();
+        if (retMsg.getType() == MassageType.ERROR) {
+            new WarnMassage(chatGUI, retMsg.getContent());
+            try {
+                socket.close();
+                loop = false;
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return;
+        }
+    }
 
+    private void handleMsg(Massage msg) {
+        switch (msg.getType()) {
+            case MassageType.EXIT:
+                new WarnMassage(chatGUI, msg.getContent());
+                try {
+                    socket.close();
+                    loop = false;
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                break;
+            case MassageType.TEXT:
+                    chatGUI.addMessage(msg);
+                break;
+            case MassageType.FILE:
+//                    chatGUI.addFile(msg);
+                break;
+            case MassageType.ERROR:
+                new WarnMassage(chatGUI, msg.getContent());
+                break;
+            case MassageType.SUCCESS:
+
+                break;
+            default:
+                break;
+        }
+    }
 
     @Override
     public void run() {
-        //checkInfo();
-        while (true) {
+        loginCheck(key);
+        while (loop) {
             Massage msg = receiveMsg();
             if (msg == null) {
-                break;
+                continue;
             }
-            if (msg.getType() == 0) {
-                //broadcast(msg);
-            } else {
-                //sendMsg(msg);
-            }
+            handleMsg(msg);
         }
     }
+
+
 
 
 }
