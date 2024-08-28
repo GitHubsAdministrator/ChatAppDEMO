@@ -10,4 +10,7 @@ The project submitted for homework is quite poor. Please be gentle when criticiz
 ---
 
 未完工，还在开发
+
 Not finished yet, still in development.
+
+*吸取到的教训：开发前要先把架构设计好，具体到类以及类的功能、属性；否则就会像我一样写成依托 ：(*

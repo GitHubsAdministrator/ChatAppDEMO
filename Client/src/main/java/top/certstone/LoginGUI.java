@@ -13,6 +13,8 @@ import javax.swing.*;
 import com.formdev.flatlaf.FlatDarkLaf;
 import net.miginfocom.swing.*;
 
+import static java.lang.Thread.sleep;
+
 /**
  * @author CertStone
  * @version 1.0

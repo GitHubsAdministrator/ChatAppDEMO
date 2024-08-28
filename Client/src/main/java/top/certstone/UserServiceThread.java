@@ -12,7 +12,7 @@ public class UserServiceThread extends Thread {
     public ObjectOutputStream oos ;
     public ChatGUI chatGUI;
     private String key = null;
-    public Boolean loop = true;
+    public static Boolean loop = true;
 
     public UserServiceThread(Socket socket, User user, String key) throws IOException {
         this.socket = socket;

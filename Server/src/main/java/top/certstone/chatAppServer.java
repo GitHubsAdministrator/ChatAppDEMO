@@ -7,6 +7,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.SocketException;
 import java.util.HashMap;
 import java.util.Objects;
 import java.util.Vector;
@@ -129,8 +130,9 @@ class ServerThread extends Thread {
                 }
             }
             user = msg.getSender();
+            clients.put(this, user);
             chatAppServer.users.add(user);
-            Massage retMsg = new Massage(MassageType.TEXT, "[INFO]\""+user.getName()+"\" came to the chatroom", null);
+            Massage retMsg = new Massage(MassageType.TEXT, "[INFO]\""+ConsoleLog.getSenderName(msg)+"\" came to the chatroom", null);
             broadcast(retMsg);
         } catch (Exception e) {
             e.printStackTrace();
@@ -177,13 +179,19 @@ class ServerThread extends Thread {
         // Handle client connection
         try {
             checkInfo();
-            clients.put(this, user);
+
             while (loop) {
                 // Receive message from the client
                 Massage msg = (Massage) ois.readObject();
                 handleMsg(msg);
             }
-        } catch (Exception e) {
+        }
+        catch (SocketException e) {
+            clients.remove(this);
+            chatAppServer.users.remove(user);
+            System.out.println("[INFO]\""+user.getName()+"("+user.getUUID().substring(user.getUUID().length()-ConsoleLog.UUID_LEN)+")"+"\" disconnected");
+        }
+        catch (Exception e) {
             e.printStackTrace();
         }
     }
