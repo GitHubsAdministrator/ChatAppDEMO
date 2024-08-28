@@ -1,6 +1,8 @@
 package top.certstone;
 
-public class User {
+import java.io.Serializable;
+
+public class User implements Serializable {
     private String name;
     private String UUID;
 
@@ -15,5 +17,13 @@ public class User {
 
     public String getUUID() {
         return UUID;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "name='" + name + '\'' +
+                ", UUID='" + UUID + '\'' +
+                '}';
     }
 }

@@ -1,6 +1,8 @@
 package top.certstone;
 
-public class Massage {
+import java.io.Serializable;
+
+public class Massage implements Serializable {
     private int type;
     private String content;
     private User sender;
@@ -53,11 +55,13 @@ public class Massage {
 
     @Override
     public String toString() {
+        String senderName = sender == null ? "null" : sender.getName();
+        String receiverName = receiver == null ? "null" : receiver.getName();
         return "Massage{" +
                 "type=" + type +
                 ", content='" + content + '\'' +
-                ", sender='" + sender.getName() + '\'' +
-                ", receiver='" + receiver.getName() + '\'' +
+                ", sender='" + senderName + '\'' +
+                ", receiver='" + receiverName + '\'' +
                 '}';
     }
 }
