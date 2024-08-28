@@ -8,6 +8,7 @@ import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.HashMap;
+import java.util.Objects;
 import java.util.Vector;
 
 import static top.certstone.chatAppServer.clients;
@@ -111,7 +112,7 @@ class ServerThread extends Thread {
                 loop = false;
                 return;
             }
-            if (!msg.getContent().equals(chatAppServer.key)){
+            if (!Objects.equals(msg.getContent(), chatAppServer.key)){
                 Massage retMsg = new Massage(MassageType.ERROR, "Key error", null);
                 sendMsg(retMsg);
                 socket.close();
