@@ -17,6 +17,12 @@ Not finished yet, still in development.
 
 ---
 
+## Preview
+
+(Preview will be added after the project is completed)
+
+---
+
 ## Structure
 > 项目结构
 > 
@@ -38,19 +44,20 @@ ChatAppDEMO (root)
 │  │  │  └─resources (resource files)
 │  │  └─test (Not important)
 │  └─pom.xml
-└─Server (module)
-   ├─src
-   │  ├─main
-   │  │  ├─java
-   │  │  │   └─top.certstone
-   │  │  │       ├─chatAppServer (main function)
-   │  │  │       ├─ServerThread
-   │  │  │       ├─ConsoleLog
-   │  │  │       ├─User (common class)
-   │  │  │       └─Message (common class)
-   │  │  └─resources (resource files)
-   │  └─test (Not important)
-   └─pom.xml
+├─Server (module)
+│  ├─src
+│  │  ├─main
+│  │  │  ├─java
+│  │  │  │   └─top.certstone
+│  │  │  │       ├─chatAppServer (main function)
+│  │  │  │       ├─ServerThread
+│  │  │  │       ├─ConsoleLog
+│  │  │  │       ├─User (common class)
+│  │  │  │       └─Message (common class)
+│  │  │  └─resources (resource files)
+│  │  └─test (Not important)
+│  └─pom.xml
+└─pom.xml
 ```
 
 ---
@@ -65,12 +72,12 @@ $ mvn clean package
 
 Then you can find the jar file in the `target` directory.Then you can run the jar file.
 
-Client ：Just start with `java -jar`
+Client ：Just start with `java -jar Client-1.0-SNAPSHOT-jar-with-dependencies.jar`
 
 Server ：almost the same as Client, but there's some parameters you can set .
 
 ```
-$ java -jar server.jar -h
+$ java -jar Server-1.0-SNAPSHOT-jar-with-dependencies.jar.jar -h
 Usage: <main class> [options]
   Options:
     -h, --help
@@ -95,24 +102,34 @@ $ mvn clean package
 
 然后你可以在`target`目录下找到jar文件，然后运行它。
 
-客户端：直接使用`java -jar`命令运行
+客户端：直接使用`java -jar Client-1.0-SNAPSHOT-jar-with-dependencies.jar`命令运行
 
 服务端：和客户端类似，但是有一些参数可以设置。
 
 ```
-$ java -jar server.jar -h
+$ java -jar Server-1.0-SNAPSHOT-jar-with-dependencies.jar -h
 用法: <main class> [options]
   Options:
     -h, --help
         显示此帮助消息并退出
     -p, --port
         设置服务器的端口
-        Default: 61000
+        默认: 61000
     -k, --key
         设置连接服务器时的密钥
-        Default: null
+        默认: null
 ```
 
+---
+
+## TODO
+
+- [x] 完成基本的C/S架构
+- [x] 优化UI
+- [ ] 在线用户列表
+- [ ] 私聊功能
+- [ ] 支持传递文件
+- [ ] 表情包
 
 ---
 
