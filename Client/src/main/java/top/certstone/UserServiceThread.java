@@ -86,7 +86,7 @@ public class UserServiceThread extends Thread {
                 break;
             case MassageType.TEXT:
                     chatGUI.addMessage(msg);
-                    ConsoleLog.receiveMsg(msg);
+//                    ConsoleLog.receiveMsg(msg);
                 break;
             case MassageType.FILE:
 //                    chatGUI.addFile(msg);

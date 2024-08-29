@@ -210,7 +210,7 @@ class ServerThread extends Thread {
             clients.remove(this);
             chatAppServer.users.remove(user);
 //            System.out.println("[INFO]\""+user.getName()+"("+user.getUUID().substring(user.getUUID().length()-ConsoleLog.UUID_LEN)+")"+"\" disconnected");
-            Massage retMsg = new Massage(MassageType.TEXT, "[INFO]\""+user.getName()+"\" disconnected", null);
+            Massage retMsg = new Massage(MassageType.TEXT, "[INFO]\""+user.getName()+"("+user.getUUID().substring(user.getUUID().length()-ConsoleLog.UUID_LEN)+")"+"\" disconnected", null);
             broadcast(retMsg);
         }
         catch (Exception e) {

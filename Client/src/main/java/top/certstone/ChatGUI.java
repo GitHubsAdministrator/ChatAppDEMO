@@ -19,7 +19,7 @@ import com.jgoodies.forms.factories.*;
 public class ChatGUI extends JFrame {
 
     DefaultListModel<Massage> messageListModel = new DefaultListModel<>();
-    DefaultListModel<User> userListModel = new DefaultListModel<>();
+//    DefaultListModel<User> userListModel = new DefaultListModel<>();
     UserServiceThread service;
     User user;
 
@@ -57,6 +57,18 @@ public class ChatGUI extends JFrame {
 
     }
 
+    private void userListMouseClicked(MouseEvent e) {
+        // 双击用户列表中的用户时，启动一个私聊窗口
+        if (e.getClickCount() == 2) {
+            System.out.println("Double clicked");
+//            User receiver = userList.getSelectedValue();
+//            if (receiver == null) {
+//                return;
+//            }
+//            new PrivateChatGUI(service, user, receiver);
+        }
+    }
+
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents  @formatter:off
         Nav = new JPanel();
@@ -72,6 +84,7 @@ public class ChatGUI extends JFrame {
         scrollPane3 = new JScrollPane();
         inputField = new JTextArea();
         SidePanel = new JPanel();
+        label1 = new JLabel();
         scrollPane2 = new JScrollPane();
         userList = new JList();
 
@@ -88,6 +101,7 @@ public class ChatGUI extends JFrame {
 
             //---- title ----
             title.setText("Chatroom name");
+            title.setFont(title.getFont().deriveFont(title.getFont().getStyle() | Font.BOLD, title.getFont().getSize() + 5f));
             Nav.add(title, BorderLayout.CENTER);
 
             //---- hSpacer1 ----
@@ -164,6 +178,14 @@ public class ChatGUI extends JFrame {
             ((GridBagLayout)SidePanel.getLayout()).columnWeights = new double[] {0.0, 1.0E-4};
             ((GridBagLayout)SidePanel.getLayout()).rowWeights = new double[] {0.0, 0.0, 1.0E-4};
 
+            //---- label1 ----
+            label1.setText("\u7528\u6237\u5217\u8868\uff08\u53cc\u51fb\u4ee5\u79c1\u804a\uff09");
+            label1.setBackground(new Color(0x46494b));
+            label1.setBorder(UIManager.getBorder("List.border"));
+            SidePanel.add(label1, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0,
+                GridBagConstraints.CENTER, GridBagConstraints.NONE,
+                new Insets(0, 0, 5, 0), 0, 0));
+
             //======== scrollPane2 ========
             {
 
@@ -171,6 +193,13 @@ public class ChatGUI extends JFrame {
                 userList.setPreferredSize(new Dimension(49, 30));
                 userList.setMaximumSize(new Dimension(49, 100));
                 userList.setMinimumSize(new Dimension(49, 20));
+                userList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+                userList.addMouseListener(new MouseAdapter() {
+                    @Override
+                    public void mouseClicked(MouseEvent e) {
+                        userListMouseClicked(e);
+                    }
+                });
                 scrollPane2.setViewportView(userList);
             }
             SidePanel.add(scrollPane2, new GridBagConstraints(0, 1, 1, 1, 1.0, 1.0,
@@ -197,6 +226,7 @@ public class ChatGUI extends JFrame {
     private JScrollPane scrollPane3;
     private JTextArea inputField;
     private JPanel SidePanel;
+    private JLabel label1;
     private JScrollPane scrollPane2;
     private JList userList;
     // JFormDesigner - End of variables declaration  //GEN-END:variables  @formatter:on
@@ -210,7 +240,7 @@ public class ChatGUI extends JFrame {
 
     public void updateUserList(Vector<User> users) {
         SwingUtilities.invokeLater(() -> {
-
+            DefaultListModel<User> userListModel = new DefaultListModel<>();
             for (User user : users) {
                 userListModel.addElement(user);
             }

@@ -21,9 +21,10 @@ public class User implements Serializable {
 
     @Override
     public String toString() {
-        return "User{" +
-                "name='" + name + '\'' +
-                ", UUID='" + UUID + '\'' +
-                '}';
+//        return "User{" +
+//                "name='" + name + '\'' +
+//                ", UUID='" + UUID + '\'' +
+//                '}';
+        return name+"("+getUUID().substring(getUUID().length()-ConsoleLog.UUID_LEN)+")";
     }
 }

@@ -16,6 +16,7 @@ new FormModel {
 				add( new FormComponent( "javax.swing.JLabel" ) {
 					name: "title"
 					"text": "Chatroom name"
+					"font": new com.jformdesigner.model.SwingDerivedFont( null, 1, 5, false )
 				}, new FormLayoutConstraints( class java.lang.String ) {
 					"value": "Center"
 				} )
@@ -96,6 +97,15 @@ new FormModel {
 			} ) {
 				name: "SidePanel"
 				"preferredSize": new java.awt.Dimension( 175, 45 )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "label1"
+					"text": "用户列表（双击以私聊）"
+					"background": new java.awt.Color( 70, 73, 75, 255 )
+					"border": new com.jformdesigner.model.SwingBorder( "List.border" )
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
+					"hAlign": 0
+					"vAlign": 0
+				} )
 				add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
 					name: "scrollPane2"
 					add( new FormComponent( "javax.swing.JList" ) {
@@ -103,6 +113,8 @@ new FormModel {
 						"preferredSize": new java.awt.Dimension( 49, 30 )
 						"maximumSize": new java.awt.Dimension( 49, 100 )
 						"minimumSize": new java.awt.Dimension( 49, 20 )
+						"selectionMode": 0
+						addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseClicked", "userListMouseClicked", true ) )
 					} )
 				}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
 					"gridy": 1

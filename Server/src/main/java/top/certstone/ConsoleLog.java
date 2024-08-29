@@ -22,6 +22,7 @@ public class ConsoleLog {
 
     // 1、sendMsg
     public static void sendMsg(Massage msg) {
+        if (msg.getType() == MassageType.USER_LIST) return;
         System.out.println("[INFO]sendMsg: " + getSenderName(msg) + " to " + getReceiverName(msg) + " : " + msg.getContent());
     }
 
