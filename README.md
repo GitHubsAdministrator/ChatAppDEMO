@@ -39,6 +39,7 @@ ChatAppDEMO (root)
 │  │  │  │       ├─UserServiceThread
 │  │  │  │       ├─WarnMessage
 │  │  │  │       ├─ConsoleLog
+│  │  │  │       ├─MessageRenderer
 │  │  │  │       ├─Message (common class)
 │  │  │  │       └─User (common class)
 │  │  │  └─resources (resource files)
@@ -129,6 +130,10 @@ $ java -jar Server-1.0-SNAPSHOT-jar-with-dependencies.jar -h
 - [ ] 在线用户列表
 - [ ] 私聊功能
 - [ ] 支持传递文件
+- [ ] 服务端可更改聊天室名称
+- [ ] 客户端生成配置文件及日志保存
+- [ ] 服务端日志保存
+- [ ] 服务端命令支持(like Minecraft)
 - [ ] 表情包
 
 ---

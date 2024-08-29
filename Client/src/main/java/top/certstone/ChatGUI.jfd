@@ -49,6 +49,8 @@ new FormModel {
 						"vgap": 20
 					} ) {
 						name: "functions"
+						"minimumSize": new java.awt.Dimension( 20, 20 )
+						"preferredSize": new java.awt.Dimension( 20, 33 )
 					}, new FormLayoutConstraints( class java.lang.String ) {
 						"value": "North"
 					} )

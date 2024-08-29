@@ -205,7 +205,9 @@ class ServerThread extends Thread {
         catch (SocketException e) {
             clients.remove(this);
             chatAppServer.users.remove(user);
-            System.out.println("[INFO]\""+user.getName()+"("+user.getUUID().substring(user.getUUID().length()-ConsoleLog.UUID_LEN)+")"+"\" disconnected");
+//            System.out.println("[INFO]\""+user.getName()+"("+user.getUUID().substring(user.getUUID().length()-ConsoleLog.UUID_LEN)+")"+"\" disconnected");
+            Massage retMsg = new Massage(MassageType.TEXT, "[INFO]\""+user.getName()+"\" disconnected", null);
+            broadcast(retMsg);
         }
         catch (Exception e) {
             e.printStackTrace();

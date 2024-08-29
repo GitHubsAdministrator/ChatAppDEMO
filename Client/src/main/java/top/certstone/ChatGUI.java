@@ -104,6 +104,8 @@ public class ChatGUI extends JFrame {
 
                 //======== functions ========
                 {
+                    functions.setMinimumSize(new Dimension(20, 20));
+                    functions.setPreferredSize(new Dimension(20, 33));
                     functions.setLayout(new FlowLayout(FlowLayout.LEFT, 10, 20));
                 }
                 InputPanel.add(functions, BorderLayout.NORTH);

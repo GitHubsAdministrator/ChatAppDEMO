@@ -7,6 +7,7 @@ public interface MassageType {
     int FILE = 3;
     int ERROR = 4;
     int SUCCESS = 5;
+    int LIST = 6;
 //    int REGISTER = 8;
 //    int REGISTER_SUCCESS = 9;
 //    int REGISTER_ERROR = 10;

@@ -27,7 +27,7 @@ public class MassageRenderer extends JPanel implements ListCellRenderer<Massage>
     @Override
     public Component getListCellRendererComponent(JList<? extends Massage> list, Massage msg, int index, boolean isSelected, boolean cellHasFocus) {
 
-        usernameLabel.setText(msg.getSender().getName() + " - " + msg.time);
+        usernameLabel.setText(msg.getSender() == null ? "[Server]" : msg.getSender().getName() + " - " + msg.time);
         massageArea.setText(msg.getContent());
 
         if (isSelected) {

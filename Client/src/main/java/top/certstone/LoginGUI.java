@@ -41,6 +41,9 @@ public class LoginGUI extends JFrame implements Runnable {
         } else if (name.length() > 20){
             new WarnMassage(this, "Nickname can't be longer than 20 characters!");
             return;
+        } else if ( !name.matches("^[a-zA-Z0-9_]+$")){
+            new WarnMassage(this, "Nickname can't contain special characters!");
+            return;
         }
 
         if (key.equals("")){
