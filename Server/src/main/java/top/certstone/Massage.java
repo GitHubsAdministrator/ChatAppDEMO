@@ -2,6 +2,7 @@ package top.certstone;
 
 import java.io.Serializable;
 import java.sql.Time;
+import java.util.Vector;
 
 public class Massage implements Serializable {
     private int type;
@@ -9,6 +10,7 @@ public class Massage implements Serializable {
     private User sender;
     private User receiver;
     public Time time;
+    private Vector<User> users = null;
 
     public Massage(int type, String content, User sender) {
         this.type = type;
@@ -23,6 +25,15 @@ public class Massage implements Serializable {
         this.sender = sender;
         this.receiver = receiver;
         this.time = new Time(System.currentTimeMillis());
+    }
+
+    public Massage(int type, String content, User sender, User receiver, Vector<User> users) {
+        this.type = type;
+        this.content = content;
+        this.sender = sender;
+        this.receiver = receiver;
+        this.time = new Time(System.currentTimeMillis());
+        this.users = users;
     }
 
     public int getType() {
@@ -57,10 +68,17 @@ public class Massage implements Serializable {
         this.receiver = receiver;
     }
 
+    public Vector<User> getUsers() {
+        return users;
+    }
+
     @Override
     public String toString() {
+        if (this.type == MassageType.USER_LIST) return "Massage{" + "type=" + type + ", users=" + users + '}';
+
         String senderName = sender == null ? "null" : sender.getName();
         String receiverName = receiver == null ? "null" : receiver.getName();
+
         return "Massage{" +
                 "type=" + type +
                 ", content='" + content + '\'' +

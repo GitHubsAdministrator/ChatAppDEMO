@@ -185,6 +185,10 @@ class ServerThread extends Thread {
             case MassageType.FILE:
                 //TODO: 文件传输
                 break;
+            case MassageType.USER_LIST:
+                Massage retMsg2 = new Massage(MassageType.USER_LIST, null, null, msg.getSender(), chatAppServer.users);
+                sendMsg(retMsg2);
+                break;
             default:
                 System.out.println("Unknown massage type");
         }

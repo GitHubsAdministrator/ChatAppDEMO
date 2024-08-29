@@ -75,6 +75,7 @@ new FormModel {
 							"preferredSize": new java.awt.Dimension( 64, 175 )
 							"border": sfield com.jformdesigner.model.FormObject NULL_VALUE
 							"background": new java.awt.Color( 60, 63, 65, 255 )
+							addEvent( new FormEvent( "java.awt.event.KeyListener", "keyPressed", "inputFieldEnterPressed", true ) )
 						} )
 					}, new FormLayoutConstraints( class java.lang.String ) {
 						"value": "Center"
@@ -99,6 +100,9 @@ new FormModel {
 					name: "scrollPane2"
 					add( new FormComponent( "javax.swing.JList" ) {
 						name: "userList"
+						"preferredSize": new java.awt.Dimension( 49, 30 )
+						"maximumSize": new java.awt.Dimension( 49, 100 )
+						"minimumSize": new java.awt.Dimension( 49, 20 )
 					} )
 				}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
 					"gridy": 1

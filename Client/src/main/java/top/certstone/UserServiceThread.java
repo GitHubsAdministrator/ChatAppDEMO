@@ -98,6 +98,9 @@ public class UserServiceThread extends Thread {
             case MassageType.SUCCESS:
 
                 break;
+            case MassageType.USER_LIST:
+                chatGUI.updateUserList(msg.getUsers());
+                break;
             default:
                 break;
         }

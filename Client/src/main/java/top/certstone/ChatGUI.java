@@ -8,6 +8,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
 import java.net.Socket;
+import java.util.Vector;
 import javax.swing.*;
 import javax.swing.border.*;
 import com.jgoodies.forms.factories.*;
@@ -18,6 +19,7 @@ import com.jgoodies.forms.factories.*;
 public class ChatGUI extends JFrame {
 
     DefaultListModel<Massage> messageListModel = new DefaultListModel<>();
+    DefaultListModel<User> userListModel = new DefaultListModel<>();
     UserServiceThread service;
     User user;
 
@@ -31,6 +33,7 @@ public class ChatGUI extends JFrame {
         this.setVisible(true);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
+        periodicallyRequestUserList();
     }
 
     // Function for the send button
@@ -44,6 +47,14 @@ public class ChatGUI extends JFrame {
         Massage msg = new Massage(MassageType.TEXT, content, user);
         service.sendMsg(msg);
         inputField.setText("");
+    }
+
+    private void inputFieldEnterPressed(KeyEvent e) {
+        // 当Enter键按下时，发送消息；同时按下Shift键时，换行
+        if (e.getKeyCode() == KeyEvent.VK_ENTER && !e.isShiftDown()) {
+            send(null);
+        }
+
     }
 
     private void initComponents() {
@@ -130,6 +141,12 @@ public class ChatGUI extends JFrame {
                     inputField.setPreferredSize(new Dimension(64, 175));
                     inputField.setBorder(null);
                     inputField.setBackground(new Color(0x3c3f41));
+                    inputField.addKeyListener(new KeyAdapter() {
+                        @Override
+                        public void keyPressed(KeyEvent e) {
+                            inputFieldEnterPressed(e);
+                        }
+                    });
                     scrollPane3.setViewportView(inputField);
                 }
                 InputPanel.add(scrollPane3, BorderLayout.CENTER);
@@ -149,6 +166,11 @@ public class ChatGUI extends JFrame {
 
             //======== scrollPane2 ========
             {
+
+                //---- userList ----
+                userList.setPreferredSize(new Dimension(49, 30));
+                userList.setMaximumSize(new Dimension(49, 100));
+                userList.setMinimumSize(new Dimension(49, 20));
                 scrollPane2.setViewportView(userList);
             }
             SidePanel.add(scrollPane2, new GridBagConstraints(0, 1, 1, 1, 1.0, 1.0,
@@ -186,4 +208,27 @@ public class ChatGUI extends JFrame {
         });
     }
 
+    public void updateUserList(Vector<User> users) {
+        SwingUtilities.invokeLater(() -> {
+
+            for (User user : users) {
+                userListModel.addElement(user);
+            }
+            userList.setModel(userListModel);
+        });
+    }
+
+    public void periodicallyRequestUserList() {
+        Thread t = new Thread(() -> {
+            while (true) {
+                try {
+                    Thread.sleep(3000);
+                } catch (InterruptedException ignored) {}
+                Massage msg = new Massage(MassageType.USER_LIST, null, user);
+                service.sendMsg(msg);
+            }
+        });
+        t.setDaemon(true);
+        t.start();
+    }
 }
