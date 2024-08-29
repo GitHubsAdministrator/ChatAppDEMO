@@ -7,7 +7,7 @@
 交作业的项目，写的很烂各位轻点喷🥲   
 The project submitted for homework is quite poor. Please be gentle when criticizing it.🥲
 
----
+
 
 ## Status
 
@@ -15,13 +15,13 @@ The project submitted for homework is quite poor. Please be gentle when criticiz
 
 Not finished yet, still in development.
 
----
+
 
 ## Preview
 
 (Preview will be added after the project is completed)
 
----
+
 
 ## Structure
 > 项目结构
@@ -60,7 +60,7 @@ ChatAppDEMO (root)
 └─pom.xml
 ```
 
----
+
 
 ## Usage(English)
 
@@ -90,7 +90,7 @@ Usage: <main class> [options]
       Default: null
 ```
 
----
+
 
 ## 食用方法(中文)
 
@@ -120,7 +120,7 @@ $ java -jar Server-1.0-SNAPSHOT-jar-with-dependencies.jar -h
         默认: null
 ```
 
----
+
 
 ## TODO
 
