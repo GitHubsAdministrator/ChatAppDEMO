@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.util.Vector;
 
 public class UserServiceThread extends Thread {
     private Socket socket;
@@ -12,6 +13,7 @@ public class UserServiceThread extends Thread {
     public ObjectInputStream ois ;
     public ObjectOutputStream oos ;
     public ChatGUI chatGUI;
+    public Vector<PrivateChatGUI> chattingWindows = new Vector<>();
     private String key = null;
     public static Boolean loop = true;
 
@@ -85,8 +87,17 @@ public class UserServiceThread extends Thread {
                 }
                 break;
             case MassageType.TEXT:
+                if (!msg.isPrivate) {
                     chatGUI.addMessage(msg);
-//                    ConsoleLog.receiveMsg(msg);
+                } else {
+                    for (PrivateChatGUI privateChatGUI : chattingWindows) {
+                        if (privateChatGUI.targetUser.getName().equals(msg.getSender().getName())) {
+                            privateChatGUI.addMessage(msg);
+                            return;
+                        }
+                    }
+                    startChatWith(msg.getSender()).addMessage(msg);
+                }
                 break;
             case MassageType.FILE:
 //                    chatGUI.addFile(msg);
@@ -119,6 +130,16 @@ public class UserServiceThread extends Thread {
     }
 
 
-
-
+    public PrivateChatGUI startChatWith(User selectedUser) {
+        // 当选定用户不在chattingWindows中时，创建一个新的私聊窗口
+        // When the selected user is not in chattingWindows, create a new private chat window
+        for (PrivateChatGUI privateChatGUI : chattingWindows) {
+            if (privateChatGUI.targetUser.getName().equals(selectedUser.getName())) {
+                return privateChatGUI;
+            }
+        }
+        PrivateChatGUI privateChatGUI = new PrivateChatGUI(this, selectedUser);
+        chattingWindows.add(privateChatGUI);
+        return privateChatGUI;
+    }
 }

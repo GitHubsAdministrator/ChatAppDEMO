@@ -1,0 +1,95 @@
+JFDML JFormDesigner: "8.2.4.0.393" Java: "21.0.3" encoding: "UTF-8"
+
+new FormModel {
+	contentType: "form/swing"
+	root: new FormRoot {
+		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class java.awt.BorderLayout ) ) {
+			name: "this"
+			"preferredSize": new java.awt.Dimension( 515, 580 )
+			"title": "PrivateChat"
+			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.BorderLayout ) {
+				"hgap": 3
+				"vgap": 3
+			} ) {
+				name: "Nav"
+				"preferredSize": new java.awt.Dimension( 88, 55 )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "title"
+					"text": "Username"
+					"font": new com.jformdesigner.model.SwingDerivedFont( null, 65536, 3, false )
+				}, new FormLayoutConstraints( class java.lang.String ) {
+					"value": "Center"
+				} )
+				add( new FormComponent( "com.jformdesigner.designer.wrapper.HSpacer" ) {
+					name: "hSpacer1"
+					"preferredSize": new java.awt.Dimension( 20, 10 )
+				}, new FormLayoutConstraints( class java.lang.String ) {
+					"value": "West"
+				} )
+			}, new FormLayoutConstraints( class java.lang.String ) {
+				"value": "North"
+			} )
+			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.BorderLayout ) ) {
+				name: "IOPanel"
+				add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+					name: "MessagePanel"
+					add( new FormComponent( "javax.swing.JList" ) {
+						name: "messageList"
+					} )
+				}, new FormLayoutConstraints( class java.lang.String ) {
+					"value": "Center"
+				} )
+				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.BorderLayout ) ) {
+					name: "InputPanel"
+					"border": new javax.swing.border.TitledBorder( "Input Text Here" )
+					"minimumSize": new java.awt.Dimension( 92, 100 )
+					"preferredSize": new java.awt.Dimension( 92, 240 )
+					add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.FlowLayout ) {
+						"alignment": 0
+						"hgap": 10
+						"vgap": 20
+					} ) {
+						name: "functions"
+						"minimumSize": new java.awt.Dimension( 20, 20 )
+						"preferredSize": new java.awt.Dimension( 20, 33 )
+					}, new FormLayoutConstraints( class java.lang.String ) {
+						"value": "North"
+					} )
+					add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.FlowLayout ) {
+						"alignment": 2
+					} ) {
+						name: "SendPanel"
+						add( new FormComponent( "javax.swing.JButton" ) {
+							name: "sendButton"
+							"text": "Send"
+							"alignmentY": -0.5f
+							addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "send", true ) )
+						} )
+					}, new FormLayoutConstraints( class java.lang.String ) {
+						"value": "South"
+					} )
+					add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+						name: "scrollPane3"
+						"border": new javax.swing.border.EmptyBorder( 5, 5, 5, 5 )
+						add( new FormComponent( "javax.swing.JTextArea" ) {
+							name: "inputField"
+							"preferredSize": new java.awt.Dimension( 64, 175 )
+							"border": sfield com.jformdesigner.model.FormObject NULL_VALUE
+							"background": new java.awt.Color( 60, 63, 65, 255 )
+							addEvent( new FormEvent( "java.awt.event.KeyListener", "keyPressed", "inputFieldEnterPressed", true ) )
+						} )
+					}, new FormLayoutConstraints( class java.lang.String ) {
+						"value": "Center"
+					} )
+				}, new FormLayoutConstraints( class java.lang.String ) {
+					"value": "South"
+				} )
+			}, new FormLayoutConstraints( class java.lang.String ) {
+				"value": "Center"
+			} )
+		}, new FormLayoutConstraints( null ) {
+			"size": new java.awt.Dimension( 515, 580 )
+			"location": new java.awt.Point( 0, 0 )
+		} )
+	}
+}

@@ -6,11 +6,12 @@ import java.util.Vector;
 
 public class Massage implements Serializable {
     private int type;
-    private String content;
-    private User sender;
-    private User receiver;
+    private String content = null;
+    private User sender = null;
+    private User receiver = null;
     public Time time;
     private Vector<User> users = null;
+    public Boolean isPrivate = false;
 
     public Massage(int type, String content, User sender) {
         this.type = type;
@@ -34,6 +35,15 @@ public class Massage implements Serializable {
         this.receiver = receiver;
         this.time = new Time(System.currentTimeMillis());
         this.users = users;
+    }
+
+    public Massage(int type, String content, User sender, User receiver, Boolean isPrivate) {
+        this.type = type;
+        this.content = content;
+        this.sender = sender;
+        this.receiver = receiver;
+        this.time = new Time(System.currentTimeMillis());
+        this.isPrivate = isPrivate;
     }
 
     public int getType() {
@@ -84,6 +94,8 @@ public class Massage implements Serializable {
                 ", content='" + content + '\'' +
                 ", sender='" + senderName + '\'' +
                 ", receiver='" + receiverName + '\'' +
+                ", time=" + time +
+                ", isPrivate=" + isPrivate +
                 '}';
     }
 }

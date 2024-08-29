@@ -40,6 +40,7 @@ ChatAppDEMO (root)
 │  │  │  │       ├─WarnMessage
 │  │  │  │       ├─ConsoleLog
 │  │  │  │       ├─MessageRenderer
+│  │  │  │       ├─PrivateChatGUI
 │  │  │  │       ├─Message (common class)
 │  │  │  │       └─User (common class)
 │  │  │  └─resources (resource files)
@@ -127,8 +128,8 @@ $ java -jar Server-1.0-SNAPSHOT-jar-with-dependencies.jar -h
 
 - [x] 完成基本的C/S架构
 - [x] 优化UI
-- [ ] 在线用户列表
-- [ ] 私聊功能
+- [x] 在线用户列表
+- [x] 私聊功能
 - [ ] 支持传递文件
 - [ ] 服务端可更改聊天室名称
 - [ ] 客户端生成配置文件及日志保存
