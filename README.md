@@ -26,6 +26,8 @@ The project submitted for homework is quite poor. Please be gentle when criticiz
 
 Client ：Just start with `java -jar Client-1.0-SNAPSHOT-jar-with-dependencies.jar`
 
+*Update: The Release now provides built exe programs that can be run directly*
+
 Server ：almost the same as Client, but there's some parameters you can set .
 
 ```
@@ -50,6 +52,8 @@ Usage: <main class> [options]
 ## 食用方法(中文)
 
 客户端：使用`java -jar Client-1.0-SNAPSHOT-jar-with-dependencies.jar`命令运行
+
+*更新：Release 现已提供构建好的exe程序，可直接运行*
 
 服务端：和客户端类似，但是有一些参数可以设置。
 
