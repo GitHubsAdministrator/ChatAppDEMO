@@ -40,6 +40,7 @@ ChatAppDEMO (root)
 │  │  │  │       ├─WarnMessage
 │  │  │  │       ├─ConsoleLog
 │  │  │  │       ├─MessageRenderer
+│  │  │  │       ├─CustomListCellRenderer
 │  │  │  │       ├─PrivateChatGUI
 │  │  │  │       ├─Message (common class)
 │  │  │  │       └─User (common class)
