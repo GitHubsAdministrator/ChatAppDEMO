@@ -21,47 +21,6 @@ The project submitted for homework is quite poor. Please be gentle when criticiz
 
 </div>
 
-## Structure
-> 项目结构
-> 
-```
-ChatAppDEMO (root)
-├─Client (module)
-│  ├─src
-│  │  ├─main
-│  │  │  ├─java
-│  │  │  │   └─top.certstone
-│  │  │  │       ├─chatAppClient (main function)
-│  │  │  │       ├─LoginGUI
-│  │  │  │       ├─ChatGUI
-│  │  │  │       ├─UserServiceThread
-│  │  │  │       ├─WarnMessage
-│  │  │  │       ├─ConsoleLog
-│  │  │  │       ├─MessageRenderer
-│  │  │  │       ├─CustomListCellRenderer
-│  │  │  │       ├─PrivateChatGUI
-│  │  │  │       ├─Message (common class)
-│  │  │  │       └─User (common class)
-│  │  │  └─resources (resource files)
-│  │  └─test (Not important)
-│  └─pom.xml
-├─Server (module)
-│  ├─src
-│  │  ├─main
-│  │  │  ├─java
-│  │  │  │   └─top.certstone
-│  │  │  │       ├─chatAppServer (main function)
-│  │  │  │       ├─ServerThread
-│  │  │  │       ├─ConsoleLog
-│  │  │  │       ├─User (common class)
-│  │  │  │       └─Message (common class)
-│  │  │  └─resources (resource files)
-│  │  └─test (Not important)
-│  └─pom.xml
-└─pom.xml
-```
-
-
 
 ## Usage(English)
 
@@ -114,6 +73,49 @@ $ java -jar Server-1.0-SNAPSHOT-jar-with-dependencies.jar -h
 ## Compile
 
 The project is built with Maven, so you can use `mvn clean package` in the root directory to compile the project. The compiled jar files are in the `target` directory of each module.
+
+项目使用Maven构建，所以你可以在根目录使用`mvn clean package`来编译项目。编译后的jar文件在每个模块的`target`目录下。
+
+## Structure
+> 项目结构
+>
+```
+ChatAppDEMO (root)
+├─Client (module)
+│  ├─src
+│  │  ├─main
+│  │  │  ├─java
+│  │  │  │   └─top.certstone
+│  │  │  │       ├─chatAppClient (main function)
+│  │  │  │       ├─LoginGUI
+│  │  │  │       ├─ChatGUI
+│  │  │  │       ├─UserServiceThread
+│  │  │  │       ├─WarnMessage
+│  │  │  │       ├─ConsoleLog
+│  │  │  │       ├─MessageRenderer
+│  │  │  │       ├─CustomListCellRenderer
+│  │  │  │       ├─PrivateChatGUI
+│  │  │  │       ├─Message (common class)
+│  │  │  │       └─User (common class)
+│  │  │  └─resources (resource files)
+│  │  └─test (Not important)
+│  └─pom.xml
+├─Server (module)
+│  ├─src
+│  │  ├─main
+│  │  │  ├─java
+│  │  │  │   └─top.certstone
+│  │  │  │       ├─chatAppServer (main function)
+│  │  │  │       ├─ServerThread
+│  │  │  │       ├─ConsoleLog
+│  │  │  │       ├─User (common class)
+│  │  │  │       └─Message (common class)
+│  │  │  └─resources (resource files)
+│  │  └─test (Not important)
+│  └─pom.xml
+└─pom.xml
+```
+
 
 
 ## TODO
