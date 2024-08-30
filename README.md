@@ -142,6 +142,7 @@ $ java -jar Server-1.0-SNAPSHOT-jar-with-dependencies.jar -h
 - [ ] 客户端生成配置文件及日志保存
 - [ ] 服务端日志保存
 - [ ] 服务端命令支持(like Minecraft)
+- [ ] 支持发送图片
 - [ ] 表情包
 
 ---
