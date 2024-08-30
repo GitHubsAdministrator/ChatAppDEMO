@@ -9,19 +9,17 @@ The project submitted for homework is quite poor. Please be gentle when criticiz
 
 
 
-## Status
-
-未完工，还在开发
-
-Not finished yet, still in development.
-
-
-
 ## Preview
 
-(Preview will be added after the project is completed)
+<div style="text-align: center;">
 
+![Login](https://github.com/user-attachments/assets/3402523d-7545-4833-abd6-2347f0130e96)
 
+![ChatGUI](https://github.com/user-attachments/assets/520e095b-82fe-4a00-9f41-5dea83753740)
+
+![PrivateChat](https://github.com/user-attachments/assets/6eb5f28e-369d-4779-95fa-fe709924952f)
+
+</div>
 
 ## Structure
 > 项目结构
@@ -67,14 +65,6 @@ ChatAppDEMO (root)
 
 ## Usage(English)
 
-Firstly, you need to build the project with Maven.
-
-```
-$ mvn clean package
-```
-
-Then you can find the jar file in the `target` directory.Then you can run the jar file.
-
 Client ：Just start with `java -jar Client-1.0-SNAPSHOT-jar-with-dependencies.jar`
 
 Server ：almost the same as Client, but there's some parameters you can set .
@@ -100,15 +90,7 @@ Usage: <main class> [options]
 
 ## 食用方法(中文)
 
-首先，你需要使用Maven构建项目（当前项目还在开发，后续会在 release 提供编译好的jar——甚至exe）。
-
-```
-$ mvn clean package
-```
-
-然后你可以在`target`目录下找到jar文件，然后运行它。
-
-客户端：直接使用`java -jar Client-1.0-SNAPSHOT-jar-with-dependencies.jar`命令运行
+客户端：使用`java -jar Client-1.0-SNAPSHOT-jar-with-dependencies.jar`命令运行
 
 服务端：和客户端类似，但是有一些参数可以设置。
 
@@ -129,6 +111,9 @@ $ java -jar Server-1.0-SNAPSHOT-jar-with-dependencies.jar -h
         默认: "Chatroom name"
 ```
 
+## Compile
+
+The project is built with Maven, so you can use `mvn clean package` in the root directory to compile the project. The compiled jar files are in the `target` directory of each module.
 
 
 ## TODO
@@ -147,7 +132,7 @@ $ java -jar Server-1.0-SNAPSHOT-jar-with-dependencies.jar -h
 
 ---
 
-- 碎碎念s
+- 碎碎念
 
 *吸取到的教训：开发前要先把架构设计好，具体到类以及类的功能、属性；否则就会像我一样写成依托 ：(*
 
