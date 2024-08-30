@@ -51,6 +51,13 @@ public class UserServiceThread extends Thread {
             return msg;
         } catch (Exception e) {
             e.printStackTrace();
+            new WarnMassage(chatGUI, "Connection Lost");
+            loop = false;
+            try {
+                socket.close();
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
             return null;
         }
     }
@@ -142,4 +149,6 @@ public class UserServiceThread extends Thread {
         chattingWindows.add(privateChatGUI);
         return privateChatGUI;
     }
+
+
 }

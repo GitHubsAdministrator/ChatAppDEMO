@@ -8,6 +8,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
 import java.net.Socket;
+import java.util.Timer;
 import java.util.Vector;
 import javax.swing.*;
 import javax.swing.border.*;
@@ -248,16 +249,14 @@ public class ChatGUI extends JFrame {
     }
 
     public void periodicallyRequestUserList() {
-        Thread t = new Thread(() -> {
-            while (true) {
-                try {
-                    Thread.sleep(2500);
-                } catch (InterruptedException ignored) {}
-                Massage msg = new Massage(MassageType.USER_LIST, null, user);
-                service.sendMsg(msg);
+        // 定时请求用户列表
+        Massage updateListMsg = new Massage(MassageType.USER_LIST, null, user);
+        Timer timer = new Timer();
+        timer.schedule(new java.util.TimerTask() {
+            @Override
+            public void run() {
+                service.sendMsg(updateListMsg);
             }
-        });
-        t.setDaemon(true);
-        t.start();
+        }, 0, 2000);
     }
 }

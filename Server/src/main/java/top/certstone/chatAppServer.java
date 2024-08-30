@@ -27,6 +27,20 @@ public class chatAppServer {
         try { // Create a server socket
             ServerSocket server = new ServerSocket(port);
             System.out.println("Server started on port " + port);
+
+            // Add shutdown hook
+            Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+                try {
+                    System.out.println("Shutting down server...");
+                    server.close();
+                    for (ServerThread client : clients.keySet()) {
+                        client.getSocket().close();
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }));
+
             while (true) {
                 ServerThread serverThread = new ServerThread(server.accept());
                 serverThread.start();
@@ -186,8 +200,7 @@ class ServerThread extends Thread {
                 //TODO: 文件传输
                 break;
             case MassageType.USER_LIST:
-                Massage retMsg2 = new Massage(MassageType.USER_LIST, null, null, msg.getSender(), chatAppServer.users);
-                sendMsg(retMsg2);
+                sendMsg(new Massage(MassageType.USER_LIST, null, null, msg.getSender(), chatAppServer.users));
                 break;
             default:
                 System.out.println("Unknown massage type");
