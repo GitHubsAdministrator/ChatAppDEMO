@@ -200,7 +200,12 @@ class ServerThread extends Thread {
                 //TODO: 文件传输
                 break;
             case MassageType.USER_LIST:
-                sendMsg(new Massage(MassageType.USER_LIST, null, null, msg.getSender(), chatAppServer.users));
+                // 返回当前的用户列表(Vector<User>)
+                Vector<User> users = new Vector<>();
+                for (User user : chatAppServer.users) {
+                    users.add(user);
+                }
+                sendMsg(new Massage(MassageType.USER_LIST, null, null, msg.getSender(), users));
                 break;
             default:
                 System.out.println("Unknown massage type");
