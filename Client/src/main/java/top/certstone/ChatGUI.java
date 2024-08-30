@@ -35,7 +35,14 @@ public class ChatGUI extends JFrame {
         this.setVisible(true);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
+        requestRoomName();
         periodicallyRequestUserList();
+    }
+
+    // request the chatroom name
+    private void requestRoomName() {
+        Massage requestRoomNameMsg = new Massage(MassageType.ROOM_NAME, null, user);
+        service.sendMsg(requestRoomNameMsg);
     }
 
     // Function for the send button
@@ -92,7 +99,7 @@ public class ChatGUI extends JFrame {
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents  @formatter:off
         Nav = new JPanel();
-        title = new JLabel();
+        roomName = new JLabel();
         hSpacer1 = new JPanel(null);
         IOPanel = new JPanel();
         MessagePanel = new JScrollPane();
@@ -119,10 +126,10 @@ public class ChatGUI extends JFrame {
             Nav.setPreferredSize(new Dimension(88, 55));
             Nav.setLayout(new BorderLayout(3, 3));
 
-            //---- title ----
-            title.setText("Chatroom name");
-            title.setFont(title.getFont().deriveFont(title.getFont().getStyle() | Font.BOLD, title.getFont().getSize() + 5f));
-            Nav.add(title, BorderLayout.CENTER);
+            //---- roomName ----
+            roomName.setText("Chatroom name");
+            roomName.setFont(roomName.getFont().deriveFont(roomName.getFont().getStyle() | Font.BOLD, roomName.getFont().getSize() + 5f));
+            Nav.add(roomName, BorderLayout.CENTER);
 
             //---- hSpacer1 ----
             hSpacer1.setPreferredSize(new Dimension(20, 10));
@@ -234,7 +241,7 @@ public class ChatGUI extends JFrame {
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables  @formatter:off
     private JPanel Nav;
-    private JLabel title;
+    private JLabel roomName;
     private JPanel hSpacer1;
     private JPanel IOPanel;
     private JScrollPane MessagePanel;
@@ -278,5 +285,11 @@ public class ChatGUI extends JFrame {
                 service.sendMsg(updateListMsg);
             }
         }, 0, 2000);
+    }
+
+    public void setRoomName(String name) {
+        SwingUtilities.invokeLater(() -> {
+            roomName.setText(name);
+        });
     }
 }

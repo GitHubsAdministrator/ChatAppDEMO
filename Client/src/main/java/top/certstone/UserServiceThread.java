@@ -114,11 +114,14 @@ public class UserServiceThread extends Thread {
                 new WarnMassage(chatGUI, msg.getContent());
                 loop = false;
                 break;
-            case MassageType.SUCCESS:
-
-                break;
+//            case MassageType.SUCCESS:
+//
+//                break;
             case MassageType.USER_LIST:
                 chatGUI.updateUserList(msg.getUsers());
+                break;
+            case MassageType.ROOM_NAME:
+                chatGUI.setRoomName(msg.getContent());
                 break;
             default:
                 break;

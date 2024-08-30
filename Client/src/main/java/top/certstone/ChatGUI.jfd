@@ -14,7 +14,7 @@ new FormModel {
 				name: "Nav"
 				"preferredSize": new java.awt.Dimension( 88, 55 )
 				add( new FormComponent( "javax.swing.JLabel" ) {
-					name: "title"
+					name: "roomName"
 					"text": "Chatroom name"
 					"font": new com.jformdesigner.model.SwingDerivedFont( null, 1, 5, false )
 				}, new FormLayoutConstraints( class java.lang.String ) {

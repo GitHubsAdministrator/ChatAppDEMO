@@ -8,6 +8,7 @@ public interface MassageType {
     int ERROR = 4;
     int SUCCESS = 5;
     int USER_LIST = 6;
+    int ROOM_NAME = 7;
 //    int REGISTER = 8;
 //    int REGISTER_SUCCESS = 9;
 //    int REGISTER_ERROR = 10;

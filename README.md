@@ -91,6 +91,9 @@ Usage: <main class> [options]
     -k, --key
       Set the key when connecting to the server
       Default: null
+    -n, --name
+      Set the name of the chatroom
+      Default: "Chatroom name"
 ```
 
 
@@ -121,6 +124,9 @@ $ java -jar Server-1.0-SNAPSHOT-jar-with-dependencies.jar -h
     -k, --key
         设置连接服务器时的密钥
         默认: null
+    -n, --name
+        设置聊天室的名称
+        默认: "Chatroom name"
 ```
 
 
@@ -132,7 +138,7 @@ $ java -jar Server-1.0-SNAPSHOT-jar-with-dependencies.jar -h
 - [x] 在线用户列表
 - [x] 私聊功能
 - [ ] 支持传递文件
-- [ ] 服务端可更改聊天室名称
+- [x] 服务端可更改聊天室名称
 - [ ] 客户端生成配置文件及日志保存
 - [ ] 服务端日志保存
 - [ ] 服务端命令支持(like Minecraft)

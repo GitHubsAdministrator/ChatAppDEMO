@@ -18,6 +18,7 @@ public class chatAppServer {
 
     public static int port = 61000; // Default port
     public static String key = null; // Default key
+    public static String roomName = "Chatroom name"; // Default chatroom name
     public static HashMap<ServerThread,User> clients = new HashMap<>(); // Create a vector to store clients
     public static Vector<User> users = new Vector<>(); // Create a vector to store users
 
@@ -71,6 +72,13 @@ public class chatAppServer {
             }
         }
 
+        // 获取聊天室名称参数-n(or --name)
+        for (int i = 0; i < args.length; i++) {
+            if (args[i].equals("-n") || args[i].equals("--name")) {
+                roomName = args[i + 1];
+            }
+        }
+
         // 获取-h/--help参数
         for (int i = 0; i < args.length; i++) {
             if (args[i].equals("-h") || args[i].equals("--help")) {
@@ -78,6 +86,7 @@ public class chatAppServer {
                 System.out.println("Options:");
                 System.out.println("  -h, --help         Show this help message and exit");
                 System.out.println("  -p, --port <port>  Set the port of the server (default 61000)");
+                System.out.println("  -n, --name <name>  Set the name of the chatroom (default \"Chatroom name\")");
                 System.out.println("  -k, --key <key>    Set the key of the server (default null)");
                 System.exit(0);
             }
@@ -206,6 +215,9 @@ class ServerThread extends Thread {
                     users.add(user);
                 }
                 sendMsg(new Massage(MassageType.USER_LIST, null, null, msg.getSender(), users));
+                break;
+            case MassageType.ROOM_NAME:
+                sendMsg(new Massage(MassageType.ROOM_NAME, chatAppServer.roomName, null, msg.getSender()));
                 break;
             default:
                 System.out.println("Unknown massage type");
