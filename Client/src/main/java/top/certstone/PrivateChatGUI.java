@@ -28,18 +28,20 @@ public class PrivateChatGUI extends JFrame {
         this.selfUser = service.getUser();
         this.targetUser = targetUser;
         this.setVisible(true);
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 
     }
 
     private void send(ActionEvent e) {
         // the same as the send function in ChatGUI
         String content = inputField.getText();
-        if (content.equals("")) {
+        // If the content is empty or only contains spaces/tabs/newlines, return
+        if (content.trim().equals("")) {
             return;
         }
         Massage msg = new Massage(MassageType.TEXT, content, selfUser, targetUser, true);
         service.sendMsg(msg);
+        addMessage(msg);
         inputField.setText("");
     }
 
@@ -47,6 +49,8 @@ public class PrivateChatGUI extends JFrame {
         // the same as the inputFieldEnterPressed function in ChatGUI
         if (e.getKeyCode() == KeyEvent.VK_ENTER && !e.isShiftDown()) {
             send(null);
+        } else if (e.getKeyCode() == KeyEvent.VK_ENTER && e.isShiftDown()) {
+            inputField.append("\n");
         }
     }
 

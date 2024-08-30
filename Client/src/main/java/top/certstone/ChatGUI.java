@@ -41,7 +41,8 @@ public class ChatGUI extends JFrame {
     private void send(ActionEvent e) {
         // Get the content of the input box
         String content = inputField.getText();
-        if (content.equals("")) {
+        // If the content is empty or only contains spaces/tabs/newlines, return
+        if (content.trim().equals("")) {
             return;
         }
         // Send the message
@@ -55,6 +56,8 @@ public class ChatGUI extends JFrame {
         // When the Enter key is pressed, send the message; at the same time, press the Shift key to wrap
         if (e.getKeyCode() == KeyEvent.VK_ENTER && !e.isShiftDown()) {
             send(null);
+        } else if (e.getKeyCode() == KeyEvent.VK_ENTER && e.isShiftDown()) {
+            inputField.append("\n");
         }
 
     }
