@@ -55,6 +55,12 @@ public class ChatGUI extends JFrame {
         // 当Enter键按下时，发送消息；同时按下Shift键时，换行
         // When the Enter key is pressed, send the message; at the same time, press the Shift key to wrap
         if (e.getKeyCode() == KeyEvent.VK_ENTER && !e.isShiftDown()) {
+            // 先删掉末尾的换行符
+            String content = inputField.getText();
+            if (content.endsWith("\n")) {
+                content = content.substring(0, content.length() - 1);
+                inputField.setText(content);
+            }
             send(null);
         } else if (e.getKeyCode() == KeyEvent.VK_ENTER && e.isShiftDown()) {
             inputField.append("\n");
@@ -65,6 +71,16 @@ public class ChatGUI extends JFrame {
     private void userListMouseClicked(MouseEvent e) {
         // 双击用户列表中的用户时，启动一个私聊窗口
         if (e.getClickCount() == 2) {
+            // 首先判断是否已经打开过窗口
+            if (!service.chattingWindows.isEmpty()) {
+                for (PrivateChatGUI privateChatGUI : service.chattingWindows) {
+                    if (privateChatGUI.targetUser.equals(userList.getSelectedValue())) {
+                        privateChatGUI.setVisible(true);
+                        return;
+                    }
+                }
+            }
+
             User selectedUser = (User)userList.getSelectedValue();
             if (selectedUser != null) {
                 service.startChatWith(selectedUser);

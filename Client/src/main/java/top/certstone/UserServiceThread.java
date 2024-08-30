@@ -99,6 +99,7 @@ public class UserServiceThread extends Thread {
                 } else {
                     for (PrivateChatGUI privateChatGUI : chattingWindows) {
                         if (privateChatGUI.targetUser.getName().equals(msg.getSender().getName())) {
+                            privateChatGUI.setVisible(true);
                             privateChatGUI.addMessage(msg);
                             return;
                         }

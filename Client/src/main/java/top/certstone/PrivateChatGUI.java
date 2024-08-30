@@ -41,13 +41,21 @@ public class PrivateChatGUI extends JFrame {
         }
         Massage msg = new Massage(MassageType.TEXT, content, selfUser, targetUser, true);
         service.sendMsg(msg);
-        addMessage(msg);
+        // 若目标用户不是自己，则在本地添加消息
+        if (!targetUser.getName().equals(selfUser.getName())) addMessage(msg);
+
         inputField.setText("");
     }
 
     private void inputFieldEnterPressed(KeyEvent e) {
         // the same as the inputFieldEnterPressed function in ChatGUI
         if (e.getKeyCode() == KeyEvent.VK_ENTER && !e.isShiftDown()) {
+            // 先删掉末尾的换行符
+            String content = inputField.getText();
+            if (content.endsWith("\n")) {
+                content = content.substring(0, content.length() - 1);
+                inputField.setText(content);
+            }
             send(null);
         } else if (e.getKeyCode() == KeyEvent.VK_ENTER && e.isShiftDown()) {
             inputField.append("\n");
