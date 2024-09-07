@@ -14,13 +14,23 @@ import java.util.Vector;
 
 import static top.certstone.chatAppServer.clients;
 
+/**
+ * 服务端主程序
+ */
+
 public class chatAppServer {
 
     public static int port = 61000; // Default port
     public static String key = null; // Default key
     public static String roomName = "Chatroom name"; // Default chatroom name
-    public static HashMap<ServerThread,User> clients = new HashMap<>(); // Create a vector to store clients
-    public static Vector<User> users = new Vector<>(); // Create a vector to store users
+
+    /**
+     * 建立线程池(HashMap)，用于存储和管理所有客户端线程
+     * 使用Vector存储所有用户
+     * 此处有所冗余，方便后续拓展文件传输线程
+     */
+    public static HashMap<ServerThread,User> clients = new HashMap<>();
+    public static Vector<User> users = new Vector<>();
 
     public static void main(String[] args) {
         handleParams(args);
@@ -51,12 +61,17 @@ public class chatAppServer {
         }
     }
 
+    // Remove the client from the pool
     public static void removeClient(ServerThread serverThread) {
         clients.remove(serverThread);
         users.remove(serverThread.getUser());
     }
 
 
+    /**
+     * 处理参数
+     * @param args 参数
+     */
     public static void handleParams(String[] args){
         // 获取端口参数-p (or --port)
         for (int i = 0; i < args.length; i++) {
@@ -94,8 +109,20 @@ public class chatAppServer {
     }
 }
 
-// Define the ServerThread class
+/**
+ * 服务端线程
+ * 用于处理客户端的连接、消息接收和发送
+ * Used to handle client connection, message receiving and sending
+ */
 class ServerThread extends Thread {
+
+    /**
+     * socket : 与客户端的连接
+     * user : 用户信息
+     * loop : 循环标志
+     * ois : 输入流
+     * oos : 输出流
+     */
     private Socket socket;
     private User user;
     private Boolean loop = true;
@@ -117,6 +144,7 @@ class ServerThread extends Thread {
         return user;
     }
 
+    // 向输出流中写入消息并打印日志
     public void sendMsg(Massage msg) {
         try {
             oos.writeObject(msg);
@@ -126,6 +154,7 @@ class ServerThread extends Thread {
         }
     }
 
+    // 向所有客户端广播消息
     public void broadcast(Massage msg) {
         for (ServerThread serverThread : clients.keySet()) {
             try {
@@ -168,6 +197,9 @@ class ServerThread extends Thread {
                     return;
                 }
             }
+            /**
+             * 若检查通过，发送成功信息并将用户加入用户列表
+             */
             user = msg.getSender();
             clients.put(this, user);
             chatAppServer.users.add(user);
@@ -178,9 +210,14 @@ class ServerThread extends Thread {
         }
     }
 
+    // 处理消息
     public void handleMsg(@NotNull Massage msg) {
         switch (msg.getType()) {
             case MassageType.TEXT:
+                /**
+                 * 若接收者为空，则广播消息
+                 * 若接收者不为空，则向接收者发送消息
+                 */
                 if (msg.getReceiver() == null) {
                     broadcast(msg);
                 } else {
@@ -194,17 +231,17 @@ class ServerThread extends Thread {
                     sendMsg(retMsg);
                 }
                 break;
-            case MassageType.EXIT:
-                Massage retMsg = new Massage(MassageType.TEXT, "[INFO]\""+user.getName()+"\" left the chatroom", null);
-                broadcast(retMsg);
-                try {
-                    socket.close();
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-                chatAppServer.removeClient(this);
-                loop = false;
-                break;
+//            case MassageType.EXIT:
+//                Massage retMsg = new Massage(MassageType.TEXT, "[INFO]\""+user.getName()+"\" left the chatroom", null);
+//                broadcast(retMsg);
+//                try {
+//                    socket.close();
+//                } catch (IOException e) {
+//                    throw new RuntimeException(e);
+//                }
+//                chatAppServer.removeClient(this);
+//                loop = false;
+//                break;
             case MassageType.FILE:
                 //TODO: 文件传输
                 break;
@@ -217,6 +254,7 @@ class ServerThread extends Thread {
                 sendMsg(new Massage(MassageType.USER_LIST, null, null, msg.getSender(), users));
                 break;
             case MassageType.ROOM_NAME:
+                // 返回当前的聊天室名称
                 sendMsg(new Massage(MassageType.ROOM_NAME, chatAppServer.roomName, null, msg.getSender()));
                 break;
             default:
@@ -237,9 +275,13 @@ class ServerThread extends Thread {
             }
         }
         catch (SocketException e) {
+            /**
+             * 若客户端断开连接
+             * 则将客户端从线程池中移除
+             * 并广播消息
+             */
             clients.remove(this);
             chatAppServer.users.remove(user);
-//            System.out.println("[INFO]\""+user.getName()+"("+user.getUUID().substring(user.getUUID().length()-ConsoleLog.UUID_LEN)+")"+"\" disconnected");
             Massage retMsg = new Massage(MassageType.TEXT, "[INFO]\""+user.getName()+"("+user.getUUID().substring(user.getUUID().length()-ConsoleLog.UUID_LEN)+")"+"\" disconnected", null);
             broadcast(retMsg);
         }

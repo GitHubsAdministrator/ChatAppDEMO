@@ -3,6 +3,11 @@ package top.certstone;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * 自定义的列表渲染器，用于渲染用户列表
+ * the class is used to render the user list
+ */
+
 class CustomListCellRenderer extends JLabel implements ListCellRenderer<User> {
     public CustomListCellRenderer() {
         setOpaque(true);

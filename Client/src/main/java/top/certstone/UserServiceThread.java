@@ -7,7 +7,29 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.Vector;
 
+/**
+ * @author CertStone
+ * @version 1.0
+ * This class is used to handle the communication between the client and the server
+ * It is a thread that runs in the background to receive and send messages
+ * It also handles the login process and the message handling process
+ * 用户服务线程，用于处理客户端与服务器之间的通信
+ * 该线程后台运行，用于接收和发送消息
+ * 同时处理登录过程和消息处理过程
+ */
+
 public class UserServiceThread extends Thread {
+
+    /**
+     * socket: 用于与服务器通信的套接字
+     * user: 当前用户
+     * ois: 用于接收消息的对象输入流
+     * oos: 用于发送消息的对象输出流
+     * chatGUI: 主聊天界面
+     * chattingWindows: 已私聊窗口列表
+     * key: 登录密钥
+     * loop: 用于控制线程循环
+     */
     private Socket socket;
     private static User user;
     public ObjectInputStream ois ;
@@ -34,7 +56,7 @@ public class UserServiceThread extends Thread {
         return user;
     }
 
-    public void sendMsg(Massage msg) {
+    public void sendMsg(Massage msg) { // 向输出流中写入消息并打印日志
         try {
             oos.writeObject(msg);
             ConsoleLog.sendMsg(msg);
@@ -44,12 +66,12 @@ public class UserServiceThread extends Thread {
     }
 
 
-    public Massage receiveMsg() {
+    public Massage receiveMsg() { // 从输入流中读取消息并打印日志
         try {
             Massage msg = (Massage) ois.readObject();
             ConsoleLog.receiveMsg(msg);
             return msg;
-        } catch (Exception e) {
+        } catch (Exception e) { // 若出现异常，打印异常信息并关闭连接
             e.printStackTrace();
             new WarnMassage(chatGUI, "Connection Lost");
             loop = false;
@@ -62,6 +84,7 @@ public class UserServiceThread extends Thread {
         }
     }
 
+    // 检查登录信息并初始化聊天界面
     private void loginCheck(String key) {
         Massage msg = new Massage(MassageType.LOGIN, key, user);
         sendMsg(msg);
@@ -82,6 +105,7 @@ public class UserServiceThread extends Thread {
         chatGUI = new ChatGUI(this,user);
     }
 
+    // 处理消息
     private void handleMsg(Massage msg) {
         switch (msg.getType()) {
             case MassageType.EXIT:
@@ -108,15 +132,13 @@ public class UserServiceThread extends Thread {
                 }
                 break;
             case MassageType.FILE:
-//                    chatGUI.addFile(msg);
+                //TODO: 文件传输
+                //chatGUI.addFile(msg);
                 break;
             case MassageType.ERROR:
                 new WarnMassage(chatGUI, msg.getContent());
                 loop = false;
                 break;
-//            case MassageType.SUCCESS:
-//
-//                break;
             case MassageType.USER_LIST:
                 chatGUI.updateUserList(msg.getUsers());
                 break;
@@ -140,7 +162,7 @@ public class UserServiceThread extends Thread {
         }
     }
 
-
+    // 启动一个与选定用户的私聊窗口
     public PrivateChatGUI startChatWith(User selectedUser) {
         // 当选定用户不在chattingWindows中时，创建一个新的私聊窗口
         // When the selected user is not in chattingWindows, create a new private chat window

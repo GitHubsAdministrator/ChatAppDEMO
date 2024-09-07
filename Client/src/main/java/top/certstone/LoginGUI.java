@@ -18,6 +18,8 @@ import static java.lang.Thread.sleep;
 /**
  * @author CertStone
  * @version 1.0
+ * 登录界面，用于获取服务器IP、端口、密钥、昵称，并建立连接
+ * Login interface, used to get server IP, port, key, nickname, and establish a connection
  */
 public class LoginGUI extends JFrame implements Runnable {
     public LoginGUI() {

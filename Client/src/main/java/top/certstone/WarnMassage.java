@@ -10,8 +10,15 @@ import net.miginfocom.swing.*;
 
 /**
  * @author CertStone
+ * @version 1.0
+ * 警告消息框
  */
 public class WarnMassage extends JDialog {
+    /**
+     * 构造函数
+     * @param owner 父窗口
+     * @param text 警告消息
+     */
     public WarnMassage(Window owner, String text) {
         super(owner);
         initComponents();

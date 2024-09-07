@@ -4,6 +4,11 @@ import javax.swing.*;
 import java.awt.*;
 import java.sql.Time;
 
+/**
+ * 自定义的消息渲染器，用于渲染消息列表
+ * the class is used to render the message list
+ */
+
 public class MassageRenderer extends JPanel implements ListCellRenderer<Massage> {
     private JLabel usernameLabel;
     private JTextArea massageArea;

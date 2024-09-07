@@ -1,8 +1,13 @@
 package top.certstone;
 
+/**
+ * This class is used to print logs to the console
+ * 用于向控制台打印日志
+ */
+
 public class ConsoleLog {
 
-    static final int UUID_LEN = 8;
+    static final int UUID_LEN = 8; // 控制显示的UUID长度
 
     public static String getSenderName(Massage msg) {
         if (msg.getSender() == null) {
@@ -20,14 +25,14 @@ public class ConsoleLog {
         }
     }
 
-    // sendMsg
+    // print logs when sending messages
     public static void sendMsg(Massage msg) {
         if (msg.getType() == MassageType.USER_LIST) return;
         if (msg.getReceiver()!=null)System.out.println("[INFO]sendMsg: " + getSenderName(msg) + " to " + getReceiverName(msg) + " : " + msg.getContent());
         else System.out.println("[INFO]broadcast: " + getSenderName(msg) + " to all : " + msg.getContent());
     }
 
-
+    // print logs when receiving messages
     public static void receiveMsg(Massage msg) {
         if (msg.getType() == MassageType.USER_LIST) return;
         System.out.println("[INFO]receiveMsg: " + getSenderName(msg) + " : " + msg.getContent());

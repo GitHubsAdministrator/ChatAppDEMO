@@ -16,13 +16,14 @@ import com.jgoodies.forms.factories.*;
 
 /**
  * @author CertStone
+ * @version 1.0
+ * 主聊天窗口（群聊）
  */
 public class ChatGUI extends JFrame {
 
-    DefaultListModel<Massage> messageListModel = new DefaultListModel<>();
-//    DefaultListModel<User> userListModel = new DefaultListModel<>();
-    UserServiceThread service;
-    User user;
+    DefaultListModel<Massage> messageListModel = new DefaultListModel<>(); // 消息列表
+    UserServiceThread service; // 用户服务线程
+    User user; // 本地用户
 
     public ChatGUI(UserServiceThread service, User user) {
         initComponents();
@@ -35,8 +36,8 @@ public class ChatGUI extends JFrame {
         this.setVisible(true);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        requestRoomName();
-        periodicallyRequestUserList();
+        requestRoomName(); // 获取聊天室名
+        periodicallyRequestUserList(); // 定时请求用户列表
     }
 
     // request the chatroom name
@@ -258,14 +259,14 @@ public class ChatGUI extends JFrame {
     private JList userList;
     // JFormDesigner - End of variables declaration  //GEN-END:variables  @formatter:on
 
-    public void addMessage(Massage msg) {
+    public void addMessage(Massage msg) { // to add a message to the message list
         SwingUtilities.invokeLater(() -> {
             messageListModel.addElement(msg);
             messageList.setModel(messageListModel);
         });
     }
 
-    public void updateUserList(Vector<User> users) {
+    public void updateUserList(Vector<User> users) { // 顾名思义，更新用户列表
         SwingUtilities.invokeLater(() -> {
             DefaultListModel<User> userListModel = new DefaultListModel<>();
             for (User user : users) {

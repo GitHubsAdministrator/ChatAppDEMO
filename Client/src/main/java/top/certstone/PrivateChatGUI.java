@@ -11,9 +11,22 @@ import javax.swing.border.*;
 
 /**
  * @author CertStone
+ * @version 1.0
+ * 私聊界面
+ * Private chat interface
  */
 public class PrivateChatGUI extends JFrame {
 
+    /**
+     * messageListModel : 消息列表
+     * messageListModel is used to store the message list
+     * service : 该私聊所属的用户服务线程
+     * service is the user service thread that the private chat belongs to
+     * selfUser : 用户自身
+     * selfUser is the user itself
+     * targetUser : 目标用户
+     * targetUser is the target user
+     */
     DefaultListModel<Massage> messageListModel = new DefaultListModel<>();
     UserServiceThread service;
     User selfUser;
